@@ -1,0 +1,45 @@
+# Large data files
+data/*
+!data/**/.gitkeep
+*.csv
+*.parquet
+*.gz
+*.zip
+*.tar
+
+# Model artifacts & checkpoints
+saved_models/*
+!saved_models/**/.gitkeep
+*.joblib
+*.pkl
+*.pickle
+*.h5
+*.keras
+
+# Python cache & environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Jupyter & IDE
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Agent workspaces & AI metadata
+.agents/
+.gemini/
+.claude/
+GEMINI.md
+CLAUDE.md
+AGENTS.md
+execution_audit.md
+setup_scaffold.py
