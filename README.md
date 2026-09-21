@@ -74,3 +74,25 @@ credit_project/
 ```
 
 </details>
+
+---
+
+## Quickstart: Dataset Setup
+
+To download the latest version of the Home Credit Default Risk competition dataset:
+
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Download competition dataset via kagglehub
+python src/data/download_datasets.py
+```
+
+Or in Python directly:
+```python
+import kagglehub
+
+path = kagglehub.competition_download('home-credit-default-risk')
+print("Path to competition files:", path)
+```
