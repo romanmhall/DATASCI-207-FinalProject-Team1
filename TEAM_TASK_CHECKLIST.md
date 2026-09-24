@@ -24,7 +24,7 @@ Each team member will own a core notebook track and corresponding pipeline respo
 | `notebooks/01_eda_home_credit.ipynb` | Static Application EDA, Missingness Profiling & Outlier Imputation | `[ ]` |
 | `notebooks/02_eda_relational_tables.ipynb` | Multi-Table Joins, Dynamic Aggregations & Colab Parquet Export | `[ ]` |
 | `notebooks/03_alternative_features.ipynb` | Feature Cohorts, Baseline Scorecards & LightGBM Tuning | `[ ]` |
-| `notebooks/04_model_experiments.ipynb` | TensorFlow Deep Neural Net, Subgroup Analysis & Metrics | `[ ]` |
+| `notebooks/04_model_experiments.ipynb` | TensorFlow Deep Neural Net, Subgroup Analysis & Metrics | `[x]` |
 
 ---
 
@@ -98,7 +98,7 @@ Each team member will own a core notebook track and corresponding pipeline respo
 ### Task 4: TensorFlow Tabular Neural Network & Subgroup Analysis
 **Primary Notebook**: `notebooks/04_model_experiments.ipynb`  
 **Pipeline Code**: `src/models/tf_neural_net.py`, `src/evaluation/metrics.py`  
-**Lead Owner**: `[ ]`  
+**Lead Owner**: `[Advik ]`  
 **Supporting Member(s)**: `[ ]`
 
 - [ ] **Deep Tabular Neural Network (Model 3 - Improvement 2 - Mandatory Rubric Requirement)**
@@ -120,13 +120,13 @@ Each team member will own a core notebook track and corresponding pipeline respo
 ### Task 5: Project Milestone Report ($\le 3$-Page PDF) & Delivery
 **Report Directory**: `reports/milestone/`  
 **Target File**: `reports/milestone/milestone_report.md` $\rightarrow$ `reports/milestone/milestone_report.pdf`  
-**Lead Owner**: `[ ]`  
+**Lead Owner**: `[Advik ]`  
 **Section Writers**:
   - Section 1 (Team Info & Motivation): `[ ]`
   - Section 2 (Data Description, Sizes & Preprocessing): `[ ]`
   - Section 3 (EDA Visualizations & Interpretations): `[ ]`
   - Section 4 (Data Challenges & Scaling Solutions): `[ ]`
-  - Section 5 (Planned Models, Evaluation & Subgroup Strategy): `[ ]`
+  - Section 5 (Planned Models, Evaluation & Subgroup Strategy): `[Advik ]`
   - Section 6 (Team Contributions & Notebook Ownership Log): `[ ]`
 
 - [ ] **Milestone Quality Gate Checklist**
