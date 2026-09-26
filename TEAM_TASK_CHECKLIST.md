@@ -13,15 +13,15 @@ Each team member will own a core notebook track and corresponding pipeline respo
 ### Team Member Claim Roster
 | Team Member | Email | Claimed Track / Role | Completed Tasks |
 |---|---|---|---|
-| Advik Goel | `advik_goel@berkeley.edu` | `[ ]` | `[ ]` |
+| Advik Goel | `advik_goel@berkeley.edu` | `[x]` | `[ ]` |
 | Faisal | `faisal_k@berkeley.edu` | `[ ]` | `[ ]` |
-| Roman Hall | `romanhall@berkeley.edu` | `[ ]` | `[ ]` |
+| Roman Hall | `romanhall@berkeley.edu` | `[x]` | `[ ]` |
 | Tung La | `tung_la@berkeley.edu` | `[ ]` | `[ ]` |
 
 ### Primary Notebook Track Directory
 | Primary Notebook Track | Scope & Responsibilities | Claimed Owner |
 |---|---|---|
-| `notebooks/01_eda_home_credit.ipynb` | Static Application EDA, Missingness Profiling & Outlier Imputation | `[ ]` |
+| `notebooks/01_eda_home_credit.ipynb` | Static Application EDA, Missingness Profiling & Outlier Imputation | `[x]` |
 | `notebooks/02_eda_relational_tables.ipynb` | Multi-Table Joins, Dynamic Aggregations & Colab Parquet Export | `[ ]` |
 | `notebooks/03_alternative_features.ipynb` | Feature Cohorts, Baseline Scorecards & LightGBM Tuning | `[ ]` |
 | `notebooks/04_model_experiments.ipynb` | TensorFlow Deep Neural Net, Subgroup Analysis & Metrics | `[x]` |
@@ -32,7 +32,7 @@ Each team member will own a core notebook track and corresponding pipeline respo
 
 ### Task 1: Data Ingestion, Cleaning & Static EDA
 **Primary Notebook**: `notebooks/01_eda_home_credit.ipynb`  
-**Lead Owner**: `[ ]`  
+**Lead Owner**: `[x]`  
 **Supporting Member(s)**: `[ ]`
 
 - [ ] **Data Verification & Setup** (`data/home_credit_default_risk/`)
