@@ -32,7 +32,7 @@ Each team member will own a core notebook track and corresponding pipeline respo
 
 ### Task 1: Data Ingestion, Cleaning & Static EDA
 **Primary Notebook**: `notebooks/01_eda_home_credit.ipynb`  
-**Lead Owner**: `[x]`  
+**Lead Owner**: `[Roman Hall]`  
 **Supporting Member(s)**: `[ ]`
 
 - [ ] **Data Verification & Setup** (`data/home_credit_default_risk/`)
