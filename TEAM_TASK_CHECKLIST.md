@@ -12,19 +12,19 @@ Each team member will own a core notebook track and corresponding pipeline respo
 
 ### Team Member Claim Roster
 | Team Member | Email | Claimed Track / Role | Completed Tasks |
-|---|---|---|---|
-| Advik Goel | `advik_goel@berkeley.edu` | `[x]` | `[ ]` |
-| Faisal | `faisal_k@berkeley.edu` | `[ ]` | `[ ]` |
-| Roman Hall | `romanhall@berkeley.edu` | `[x]` | `[ ]` |
-| Tung La | `tung_la@berkeley.edu` | `[ ]` | `[ ]` |
+|---|---|---------------------|---|
+| Advik Goel | `advik_goel@berkeley.edu` | `[x]`               | `[ ]` |
+| Faisal | `faisal_k@berkeley.edu` | `[ ]`               | `[ ]` |
+| Roman Hall | `romanhall@berkeley.edu` | `[x]`               | `[ ]` |
+| Tung La | `tung_la@berkeley.edu` | `[x]`               | `[ ]` |
 
 ### Primary Notebook Track Directory
 | Primary Notebook Track | Scope & Responsibilities | Claimed Owner |
-|---|---|---|
-| `notebooks/01_eda_home_credit.ipynb` | Static Application EDA, Missingness Profiling & Outlier Imputation | `[x]` |
-| `notebooks/02_eda_relational_tables.ipynb` | Multi-Table Joins, Dynamic Aggregations & Colab Parquet Export | `[ ]` |
-| `notebooks/03_alternative_features.ipynb` | Feature Cohorts, Baseline Scorecards & LightGBM Tuning | `[ ]` |
-| `notebooks/04_model_experiments.ipynb` | TensorFlow Deep Neural Net, Subgroup Analysis & Metrics | `[x]` |
+|---|---|--------------|
+| `notebooks/01_eda_home_credit.ipynb` | Static Application EDA, Missingness Profiling & Outlier Imputation | `[x]`        |
+| `notebooks/02_eda_relational_tables.ipynb` | Multi-Table Joins, Dynamic Aggregations & Colab Parquet Export | `[x]`        |
+| `notebooks/03_alternative_features.ipynb` | Feature Cohorts, Baseline Scorecards & LightGBM Tuning | `[ ]`        |
+| `notebooks/04_model_experiments.ipynb` | TensorFlow Deep Neural Net, Subgroup Analysis & Metrics | `[x]`        |
 
 ---
 
@@ -54,7 +54,7 @@ Each team member will own a core notebook track and corresponding pipeline respo
 ### Task 2: Multi-Table Relational Aggregations & Colab Export
 **Primary Notebook**: `notebooks/02_eda_relational_tables.ipynb`  
 **Pipeline Code**: `src/data/preprocess.py`  
-**Lead Owner**: `[ ]`  
+**Lead Owner**: `[Tung La]`  
 **Supporting Member(s)**: `[ ]`
 
 - [ ] **Dynamic Behavioral Aggregations**
