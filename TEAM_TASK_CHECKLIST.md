@@ -14,7 +14,7 @@ Each team member will own a core notebook track and corresponding pipeline respo
 | Team Member | Email | Claimed Track / Role | Completed Tasks |
 |---|---|---------------------|---|
 | Advik Goel | `advik_goel@berkeley.edu` | `[x]`               | `[ ]` |
-| Faisal | `faisal_k@berkeley.edu` | `[ ]`               | `[ ]` |
+| Faisal | `faisal_k@berkeley.edu` | `[x]`               | `[ ]` |
 | Roman Hall | `romanhall@berkeley.edu` | `[x]`               | `[ ]` |
 | Tung La | `tung_la@berkeley.edu` | `[x]`               | `[ ]` |
 
@@ -23,7 +23,7 @@ Each team member will own a core notebook track and corresponding pipeline respo
 |---|---|--------------|
 | `notebooks/01_eda_home_credit.ipynb` | Static Application EDA, Missingness Profiling & Outlier Imputation | `[x]`        |
 | `notebooks/02_eda_relational_tables.ipynb` | Multi-Table Joins, Dynamic Aggregations & Colab Parquet Export | `[x]`        |
-| `notebooks/03_alternative_features.ipynb` | Feature Cohorts, Baseline Scorecards & LightGBM Tuning | `[ ]`        |
+| `notebooks/03_alternative_features.ipynb` | Feature Cohorts, Baseline Scorecards & LightGBM Tuning | `[x]`        |
 | `notebooks/04_model_experiments.ipynb` | TensorFlow Deep Neural Net, Subgroup Analysis & Metrics | `[x]`        |
 
 ---
@@ -75,7 +75,7 @@ Each team member will own a core notebook track and corresponding pipeline respo
 ### Task 3: Feature Cohorts, Baseline Scorecards & Tree Ensembles
 **Primary Notebook**: `notebooks/03_alternative_features.ipynb`  
 **Pipeline Code**: `src/features/build_features.py`, `src/models/baseline.py`, `src/models/tree_models.py`  
-**Lead Owner**: `[ ]`  
+**Lead Owner**: `[Faisal Khasawneh]`  
 **Supporting Member(s)**: `[ ]`
 
 - [ ] **Feature Cohort Partitioning**
