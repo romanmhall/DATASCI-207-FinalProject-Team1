@@ -123,9 +123,9 @@ Each team member will own a core notebook track and corresponding pipeline respo
 **Lead Owner**: `[Advik ]`  
 **Section Writers**:
   - Section 1 (Team Info & Motivation): `[ ]`
-  - Section 2 (Data Description, Sizes & Preprocessing): `[ ]`
+  - Section 2 (Data Description, Sizes & Preprocessing): `[Tung La]`
   - Section 3 (EDA Visualizations & Interpretations): `[ ]`
-  - Section 4 (Data Challenges & Scaling Solutions): `[ ]`
+  - Section 4 (Data Challenges & Scaling Solutions): `[Tung La]`
   - Section 5 (Planned Models, Evaluation & Subgroup Strategy): `[Advik ]`
   - Section 6 (Team Contributions & Notebook Ownership Log): `[ ]`
 
