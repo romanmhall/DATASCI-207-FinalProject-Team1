@@ -15,16 +15,16 @@ Each team member will own a core notebook track and corresponding pipeline respo
 |---|---|---------------------|---|
 | Advik Goel | `advik_goel@berkeley.edu` | `[x]`               | `[ ]` |
 | Faisal | `faisal_k@berkeley.edu` | `[x]`               | `[ ]` |
-| Roman Hall | `romanhall@berkeley.edu` | `[x]`               | `[ ]` |
-| Tung La | `tung_la@berkeley.edu` | `[x]`               | `[ ]` |
+| Roman Hall | `romanhall@berkeley.edu` | `[x]`               | `[x]` |
+| Tung La | `tung_la@berkeley.edu` | `[x]`               | `[x]` |
 
 ### Primary Notebook Track Directory
 | Primary Notebook Track | Scope & Responsibilities | Claimed Owner |
 |---|---|--------------|
-| `notebooks/01_eda_home_credit.ipynb` | Static Application EDA, Missingness Profiling & Outlier Imputation | `[x]`        |
-| `notebooks/02_eda_relational_tables.ipynb` | Multi-Table Joins, Dynamic Aggregations & Colab Parquet Export | `[x]`        |
-| `notebooks/03_alternative_features.ipynb` | Feature Cohorts, Baseline Scorecards & LightGBM Tuning | `[x]`        |
-| `notebooks/04_model_experiments.ipynb` | TensorFlow Deep Neural Net, Subgroup Analysis & Metrics | `[x]`        |
+| `notebooks/01_eda_home_credit.ipynb` | Static Application EDA, Missingness Profiling & Outlier Imputation | `[Roman Hall]`        |
+| `notebooks/02_eda_relational_tables.ipynb` | Multi-Table Joins, Dynamic Aggregations & Colab Parquet Export | `[Tung La]`        |
+| `notebooks/03_alternative_features.ipynb` | Feature Cohorts, Baseline Scorecards & LightGBM Tuning | `[Faisal Khasawneh]`        |
+| `notebooks/04_model_experiments.ipynb` | TensorFlow Deep Neural Net, Subgroup Analysis & Metrics | `[Advik Goel]`        |
 
 ---
 
@@ -35,19 +35,19 @@ Each team member will own a core notebook track and corresponding pipeline respo
 **Lead Owner**: `[Roman Hall]`  
 **Supporting Member(s)**: `[ ]`
 
-- [ ] **Data Verification & Setup** (`data/home_credit_default_risk/`)
-  - [ ] Verify `application_train.csv` (307,511 rows, 122 columns) integrity and sha256 checksums. **Owner: [ ]**
-  - [ ] Confirm target distribution imbalance (8.07% default rate, label `TARGET` $\in \{0, 1\}$). **Owner: [ ]**
-- [ ] **Missing Value Profiling & Data Cleaning**
-  - [ ] Generate missingness heatmaps/barplots for external risk scores (`EXT_SOURCE_1`, `EXT_SOURCE_2`, `EXT_SOURCE_3`). **Owner: [ ]**
-  - [ ] Implement median/mode imputation strategy; document handling of anomalous values (e.g., `DAYS_EMPLOYED = 365243`). **Owner: [ ]**
-- [ ] **Demographic & Static Visualizations (Rubric Requirement)**
-  - [ ] Produce labeled histograms and boxplots for income (`AMT_INCOME_TOTAL`), credit amount (`AMT_CREDIT`), and annuity (`AMT_ANNUITY`). **Owner: [ ]**
-  - [ ] Plot default rates across age brackets (`DAYS_BIRTH`), education, and housing types. **Owner: [ ]**
-  - [ ] Export 2–3 high-resolution milestone figures to `reports/milestone/figures/`. **Owner: [ ]**
+- [x] **Data Verification & Setup** (`data/home_credit_default_risk/`)
+  - [x] Verify `application_train.csv` (307,511 rows, 122 columns) integrity and sha256 checksums. **Owner: [Roman Hall]**
+  - [x] Confirm target distribution imbalance (8.07% default rate, label `TARGET` $\in \{0, 1\}$). **Owner: [Roman Hall]**
+- [x] **Missing Value Profiling & Data Cleaning**
+  - [x] Generate missingness heatmaps/barplots for external risk scores (`EXT_SOURCE_1`, `EXT_SOURCE_2`, `EXT_SOURCE_3`). **Owner: [Roman Hall]**
+  - [x] Implement median/mode imputation strategy; document handling of anomalous values (e.g., `DAYS_EMPLOYED = 365243`). **Owner: [Roman Hall]**
+- [x] **Demographic & Static Visualizations (Rubric Requirement)**
+  - [x] Produce labeled histograms and boxplots for income (`AMT_INCOME_TOTAL`), credit amount (`AMT_CREDIT`), and annuity (`AMT_ANNUITY`). **Owner: [Roman Hall]**
+  - [x] Plot default rates across age brackets (`DAYS_BIRTH`), education, and housing types. **Owner: [Roman Hall]**
+  - [x] Export 2–3 high-resolution milestone figures to `reports/milestone/figures/`. **Owner: [Roman Hall]**
 
 #### Notes
--
+- Task 1 complete with all EDA cells executed and figures exported.
 
 ---
 
@@ -57,18 +57,18 @@ Each team member will own a core notebook track and corresponding pipeline respo
 **Lead Owner**: `[Tung La]`  
 **Supporting Member(s)**: `[ ]`
 
-- [ ] **Dynamic Behavioral Aggregations**
-  - [ ] Aggregate `installments_payments.csv` (13.6M rows): compute installment delay gap mean/max and underpayment frequency per `SK_ID_CURR`. **Owner: [ ]**
-  - [ ] Aggregate `POS_CASH_balance.csv` (10.0M rows): compute monthly balance trajectories, past due days, and contract status counts. **Owner: [ ]**
-  - [ ] Aggregate `previous_application.csv` (1.6M rows): compute historical refusal count, approval rate, and mean down payment percentage. **Owner: [ ]**
-  - [ ] Aggregate `bureau.csv` (1.7M rows): compute active bureau lines, total overdue debt, and max days past due. **Owner: [ ]**
-- [ ] **Data Challenge: Colab & Memory Optimization**
-  - [ ] Execute one-time pre-aggregation join back to primary `SK_ID_CURR` index. **Owner: [ ]**
-  - [ ] Export consolidated feature matrix to compressed Parquet (`data/processed/processed_features.parquet`) for fast Colab execution. **Owner: [ ]**
-  - [ ] Document data size reduction metrics (before vs. after memory footprint in MB) for the milestone report. **Owner: [ ]**
+- [x] **Dynamic Behavioral Aggregations**
+  - [x] Aggregate `installments_payments.csv` (13.6M rows): compute installment delay gap mean/max and underpayment frequency per `SK_ID_CURR`. **Owner: [Tung La]**
+  - [x] Aggregate `POS_CASH_balance.csv` (10.0M rows): compute monthly balance trajectories, past due days, and contract status counts. **Owner: [Tung La]**
+  - [x] Aggregate `previous_application.csv` (1.6M rows): compute historical refusal count, approval rate, and mean down payment percentage. **Owner: [Tung La]**
+  - [x] Aggregate `bureau.csv` (1.7M rows): compute active bureau lines, total overdue debt, and max days past due. **Owner: [Tung La]**
+- [x] **Data Challenge: Colab & Memory Optimization**
+  - [x] Execute one-time pre-aggregation join back to primary `SK_ID_CURR` index. **Owner: [Tung La]**
+  - [x] Export consolidated feature matrix to compressed Parquet (`data/processed/processed_features.parquet`) for fast Colab execution. **Owner: [Tung La]**
+  - [x] Document data size reduction metrics (before vs. after memory footprint in MB) for the milestone report. **Owner: [Tung La]**
 
 #### Notes
--
+- Task 2 complete; `processed_features.parquet` committed to repo.
 
 ---
 
@@ -120,27 +120,27 @@ Each team member will own a core notebook track and corresponding pipeline respo
 ### Task 5: Project Milestone Report ($\le 3$-Page PDF) & Delivery
 **Report Directory**: `reports/milestone/`  
 **Target File**: `reports/milestone/milestone_report.md` $\rightarrow$ `reports/milestone/milestone_report.pdf`  
-**Lead Owner**: `[Advik ]`  
+**Lead Owner**: `[Advik Goel]`  
 **Section Writers**:
-  - Section 1 (Team Info & Motivation): `[ ]`
+  - Section 1 (Team Info & Motivation): `[Advik Goel]`
   - Section 2 (Data Description, Sizes & Preprocessing): `[Tung La]`
-  - Section 3 (EDA Visualizations & Interpretations): `[ ]`
+  - Section 3 (EDA Visualizations & Interpretations): `[Roman Hall]`
   - Section 4 (Data Challenges & Scaling Solutions): `[Tung La]`
-  - Section 5 (Planned Models, Evaluation & Subgroup Strategy): `[Advik ]`
-  - Section 6 (Team Contributions & Notebook Ownership Log): `[ ]`
+  - Section 5 (Planned Models, Evaluation & Subgroup Strategy): `[Advik Goel / Faisal Khasawneh]`
+  - Section 6 (Team Contributions & Notebook Ownership Log): `[Roman Hall]`
 
 - [ ] **Milestone Quality Gate Checklist**
-  - [ ] Strict page limit verified: $\le 3$ pages total (excluding references if permitted, or including per rubric). **Owner: [ ]**
-  - [ ] All 4 team members' full names and `@berkeley.edu` emails included in header. **Owner: [ ]**
-  - [ ] Preprocessing documented: missing values, outlier treatment, feature scaling, dataset sizes before and after. **Owner: [ ]**
-  - [ ] Minimum 2–3 clearly labeled visual plots with descriptive captions and substantive analytical interpretations. **Owner: [ ]**
-  - [ ] Discussion of data challenges: handling 13.6M row scale, memory constraints, and lookahead leakage prevention. **Owner: [ ]**
-  - [ ] Detailed description of Baseline + 2 Improvements (including explicit mention of TensorFlow). **Owner: [ ]**
-  - [ ] Individual contributions and notebook ownership clearly logged per member. **Owner: [ ]**
-  - [ ] Gradescope submission: export to PDF, verify layout, and ensure all 4 members are tagged on submission. **Owner: [ ]**
+  - [x] Strict page limit verified: $\le 3$ pages total (`reports/milestone/milestone_report.pdf` verified 3 pages). **Owner: [Team]**
+  - [x] All 4 team members' full names and `@berkeley.edu` emails included in header. **Owner: [Advik Goel]**
+  - [x] Preprocessing documented: missing values, outlier treatment, feature scaling, dataset sizes before and after. **Owner: [Tung La]**
+  - [x] Minimum 2–3 clearly labeled visual plots with descriptive captions and substantive analytical interpretations. **Owner: [Roman Hall]**
+  - [x] Discussion of data challenges: handling 13.6M row scale, memory constraints, and lookahead leakage prevention. **Owner: [Tung La]**
+  - [x] Detailed description of Baseline + 2 Improvements (including explicit mention of TensorFlow). **Owner: [Advik Goel / Faisal Khasawneh]**
+  - [x] Individual contributions and notebook ownership clearly logged per member. **Owner: [Roman Hall]**
+  - [ ] Gradescope submission: export to PDF, verify layout, and ensure all 4 members are tagged on submission. **Owner: [Team]**
 
 #### Notes
--
+- LaTeX build `reports/milestone/milestone_report.pdf` compiles cleanly to exactly 3 pages. Note: `Final Project Milestone Submission.pdf` (Word export) currently measures 4 pages and should be replaced with the 3-page build to avoid rubric penalty.
 
 ---
 
