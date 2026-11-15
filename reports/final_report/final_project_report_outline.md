@@ -14,7 +14,7 @@
 - [ ] **Motivation**: Introduce the thin-file credit problem (unbanked/underbanked borrowers lacking traditional credit bureau records).
 - [ ] **Machine Learning Methodology**: State the three model families used (TensorFlow Logistic Regression baseline, LightGBM GBDT tree ensembles, and TensorFlow Tabular Deep Neural Network).
 - [ ] **Data Scope**: Mention multi-table aggregation across 26.9M behavioral transactions down to a 307k primary applicant matrix.
-- [ ] **Key Findings**: State key results (Hybrid cohort achieves 0.7699 ROC-AUC on LightGBM and 0.7584 on both TF models; alternative data adds about +0.055 ROC-AUC over Traditional features. The lift is about the same for thin-file and bureau-backed applicants, so Hypothesis 2 is not supported).
+- [ ] **Key Findings**: State key results (Hybrid cohort achieves 0.7699 ROC-AUC on LightGBM and 0.7584 on both TF models; alternative data adds about +0.055 ROC-AUC over Traditional features. For thin-file applicants the lift is +0.054 to +0.056, with bootstrap 95% ranges well above 0, so alternative data does help applicants without bureau records. The lift is about the same for thin-file and bureau-backed applicants, so Hypothesis 2 is not supported).
 
 ---
 
@@ -131,6 +131,7 @@
   - Segment the validation set into **Group A (Bureau History, $N = 52{,}668$)** vs. **Group B (Thin-File, $N = 8{,}835$)**. Thin-file applicants default more (10.0% vs. 7.7%), get a lower ROC-AUC (0.734 vs. 0.761, NN Hybrid) and are flagged more often (17% vs. 11%).
   - Gender: ROC-AUC is about equal for men and women (0.751 vs. 0.756), but men are flagged about twice as often (17% vs. 9%), in line with their higher default rate (10.1% vs. 7.0%).
 - [ ] **Hypothesis 2 Bootstrap Test**:
+  - Alternative data helps thin-file applicants on its own: Traditional $\rightarrow$ Hybrid ROC-AUC goes 0.675 $\rightarrow$ 0.729 (LogReg) and 0.677 $\rightarrow$ 0.734 (NN). The bootstrap 95% range of the thin-file lift is [0.040, 0.067] and [0.042, 0.071], well above 0. Bureau-backed applicants: [0.050, 0.061] and [0.052, 0.065].
   - Reference `fig_h2_bootstrap.png`. Thin-file lift (+0.054 LogReg / +0.056 NN) is about the same as bureau lift (+0.055 / +0.059). The bootstrap 95% range of the difference includes 0 for both models ([-0.016, +0.013] and [-0.018, +0.013]), so **Hypothesis 2 is not supported**: alternative data helps both groups about equally.
 
 ### [NOTES FOR TEAM — Overfitting Analysis & Model Comparison]
@@ -145,7 +146,7 @@
 > **Rubric Criteria**: Key takeaways, best-performing algorithm explanation, real-world limitations, and future improvements.
 
 ### [NOTES FOR ROMAN TO FILL IN]
-- [ ] **Summary of Work & Findings**: Restate that multi-table alternative behavioral features provide substantial predictive lift (+0.057 AUC) and effectively substitute for traditional bureau history for unbanked applicants.
+- [ ] **Summary of Work & Findings (Updated from Notebook 04 Results)**: Restate that multi-table alternative behavioral features provide substantial predictive lift (+0.057 AUC) and clearly improve predictions for unbanked applicants (thin-file lift +0.054 to +0.056, 95% range above 0). They do not fully replace bureau history: thin-file applicants still score lower than bureau-backed ones (~0.73 vs. ~0.76 ROC-AUC).
 - [ ] **Best Model Justification**: Summarize why LightGBM won over deep neural networks on tabular credit data (tabular inductive bias, missingness routing).
 - [ ] **Limitations**: Acknowledge dataset age, non-time-series snapshot structure, and lack of macro-economic interest rate variables.
 - [ ] **Future Work (Addressing Professor Uri's Feedback)**:
