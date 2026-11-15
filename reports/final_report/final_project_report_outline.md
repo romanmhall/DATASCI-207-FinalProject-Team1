@@ -14,7 +14,7 @@
 - [ ] **Motivation**: Introduce the thin-file credit problem (unbanked/underbanked borrowers lacking traditional credit bureau records).
 - [ ] **Machine Learning Methodology**: State the three model families used (TensorFlow Logistic Regression baseline, LightGBM GBDT tree ensembles, and TensorFlow Tabular Deep Neural Network).
 - [ ] **Data Scope**: Mention multi-table aggregation across 26.9M behavioral transactions down to a 307k primary applicant matrix.
-- [ ] **Key Findings**: State key results (Hybrid cohort achieves 0.7699 ROC-AUC on LightGBM and 0.7584 on both TF models; alternative data adds about +0.055 ROC-AUC over Traditional features. For thin-file applicants the lift is +0.054 to +0.056, with bootstrap 95% ranges well above 0, so alternative data does help applicants without bureau records. The lift is about the same for thin-file and bureau-backed applicants, so Hypothesis 2 is not supported).
+- [ ] **Key Findings**: State key results (Hybrid cohort achieves 0.7699 ROC-AUC on LightGBM and ~0.758 on both TF models; alternative data adds about +0.055 ROC-AUC over Traditional features. For thin-file applicants the lift is +0.054 to +0.058, with bootstrap 95% ranges well above 0, so alternative data does help applicants without bureau records. The lift is about the same for thin-file and bureau-backed applicants, so Hypothesis 2 is not supported).
 
 ---
 
@@ -123,19 +123,22 @@
   - Engineered domain ratios: 6.4% of importance.
 
 ### [NOTES FOR ADVIK TO FILL IN — Deep Learning, Subgroups & Precision/Recall]
-- [ ] **Neural Network Performance**: Document TF Neural Net results across cohorts from `notebooks/04_model_experiments.ipynb` (Cohort 1: 0.6999 $\rightarrow$ Cohort 3 Hybrid: **0.7584 ROC-AUC**, 0.2478 PR-AUC). TF LogReg on the same split also reaches 0.7584, so the NN does not beat the linear baseline.
+- [ ] **Neural Network Performance**: Document TF Neural Net results across cohorts from `notebooks/04_model_experiments.ipynb` (Cohort 1: 0.7026 $\rightarrow$ Cohort 3 Hybrid: **0.7581 ROC-AUC**, 0.2488 PR-AUC). TF LogReg on the same split reaches 0.7584, so the NN does not beat the linear baseline.
 - [ ] **Precision & Recall Separation (Addressing Professor Uri's Feedback)**:
-  - Use the table in Section 7 of notebook 04 (`nb04_precision_recall.csv`, Hybrid cohort). At the F1 threshold ($\tau = 0.158$ LogReg, $\tau = 0.206$ NN) both models catch ~38–40% of defaults (Recall) at ~25–26% Precision and ~90% Specificity.
-  - Discuss the business trade-off: at $\tau = 0.10$ Recall rises to 60–67% but Precision falls to 17–19% and 26–32% of applicants get flagged. At $\tau = 0.50$ Recall is only ~2%, since the TF models are not class-weighted.
+  - Use the table in Section 7 of notebook 04 (`nb04_precision_recall.csv`, Hybrid cohort). At the F1 threshold ($\tau = 0.158$ LogReg, $\tau = 0.190$ NN) both models catch ~40% of defaults (Recall) at ~25% Precision and ~89% Specificity.
+  - Discuss the business trade-off: at $\tau = 0.10$ Recall rises to 60–66% but Precision falls to 17–19% and 26–31% of applicants get flagged. At $\tau = 0.50$ Recall is only 1–2%, since the TF models are not class-weighted.
 - [ ] **Mandatory Subgroup Performance Analysis**:
-  - Segment the validation set into **Group A (Bureau History, $N = 52{,}668$)** vs. **Group B (Thin-File, $N = 8{,}835$)**. Thin-file applicants default more (10.0% vs. 7.7%), get a lower ROC-AUC (0.734 vs. 0.761, NN Hybrid) and are flagged more often (17% vs. 11%).
-  - Gender: ROC-AUC is about equal for men and women (0.751 vs. 0.756), but men are flagged about twice as often (17% vs. 9%), in line with their higher default rate (10.1% vs. 7.0%).
+  - Segment the validation set into **Group A (Bureau History, $N = 52{,}668$)** vs. **Group B (Thin-File, $N = 8{,}835$)**. Thin-file applicants default more (10.0% vs. 7.7%), get a lower ROC-AUC (0.735 vs. 0.760, NN Hybrid) and are flagged more often (18% vs. 12%).
+  - Gender: ROC-AUC is about equal for men and women (0.752 vs. 0.754), but men are flagged about twice as often (19% vs. 10%), in line with their higher default rate (10.1% vs. 7.0%).
 - [ ] **Hypothesis 2 Bootstrap Test**:
-  - Alternative data helps thin-file applicants on its own: Traditional $\rightarrow$ Hybrid ROC-AUC goes 0.675 $\rightarrow$ 0.729 (LogReg) and 0.677 $\rightarrow$ 0.734 (NN). The bootstrap 95% range of the thin-file lift is [0.040, 0.067] and [0.042, 0.071], well above 0. Bureau-backed applicants: [0.050, 0.061] and [0.052, 0.065].
-  - Reference `fig_h2_bootstrap.png`. Thin-file lift (+0.054 LogReg / +0.056 NN) is about the same as bureau lift (+0.055 / +0.059). The bootstrap 95% range of the difference includes 0 for both models ([-0.016, +0.013] and [-0.018, +0.013]), so **Hypothesis 2 is not supported**: alternative data helps both groups about equally.
+  - Alternative data helps thin-file applicants on its own: Traditional $\rightarrow$ Hybrid ROC-AUC goes 0.675 $\rightarrow$ 0.729 (LogReg) and 0.676 $\rightarrow$ 0.735 (NN). The bootstrap 95% range of the thin-file lift is [0.040, 0.067] and [0.043, 0.073], well above 0. Bureau-backed applicants: [0.050, 0.061] and [0.048, 0.061].
+  - Reference `fig_h2_bootstrap.png`. Thin-file lift (+0.054 LogReg / +0.058 NN) is about the same as bureau lift (+0.055 / +0.055). The bootstrap 95% range of the difference includes 0 for both models ([-0.016, +0.013] and [-0.012, +0.018]), so **Hypothesis 2 is not supported**: alternative data helps both groups about equally.
+- [ ] **Missing-Value Flags Experiment (Addressing Professor Uri's Feedback)**:
+  - The TF models fill blanks with the training median, which hides which values were missing. Section 11 of notebook 04 retrains both models on the Hybrid cohort with a 0/1 flag added for every column with blanks (289 $\rightarrow$ 368 inputs).
+  - Result: small gain. NN 0.7581 $\rightarrow$ 0.7596 ROC-AUC (thin-file 0.735 $\rightarrow$ 0.738), LogReg 0.7584 $\rightarrow$ 0.7593. Missingness carries some signal, but it explains only a small part of LightGBM's lead (0.7699).
 
 ### [NOTES FOR TEAM — Overfitting Analysis & Model Comparison]
-- [ ] **Overfitting Diagnostics**: Compare Train AUC vs. Validation AUC across models (e.g., TF NN Train 0.7851 vs. Val 0.7584 shows mild overfitting controlled by Dropout and EarlyStopping).
+- [ ] **Overfitting Diagnostics**: Compare Train AUC vs. Validation AUC across models (e.g., TF NN Train 0.7812 vs. Val 0.7581 shows mild overfitting controlled by Dropout and EarlyStopping).
 - [ ] **Final Model Selection**: Justify selecting LightGBM as the champion production model (highest ROC-AUC of 0.7699, superior PR-AUC of 0.2607, faster inference, and native missing value handling).
 
 ---
@@ -146,7 +149,7 @@
 > **Rubric Criteria**: Key takeaways, best-performing algorithm explanation, real-world limitations, and future improvements.
 
 ### [NOTES FOR ROMAN TO FILL IN]
-- [ ] **Summary of Work & Findings (Updated from Notebook 04 Results)**: Restate that multi-table alternative behavioral features provide substantial predictive lift (+0.057 AUC) and clearly improve predictions for unbanked applicants (thin-file lift +0.054 to +0.056, 95% range above 0). They do not fully replace bureau history: thin-file applicants still score lower than bureau-backed ones (~0.73 vs. ~0.76 ROC-AUC).
+- [ ] **Summary of Work & Findings (Updated from Notebook 04 Results)**: Restate that multi-table alternative behavioral features provide substantial predictive lift (+0.057 AUC) and clearly improve predictions for unbanked applicants (thin-file lift +0.054 to +0.058, 95% range above 0). They do not fully replace bureau history: thin-file applicants still score lower than bureau-backed ones (~0.73 vs. ~0.76 ROC-AUC).
 - [ ] **Best Model Justification**: Summarize why LightGBM won over deep neural networks on tabular credit data (tabular inductive bias, missingness routing).
 - [ ] **Limitations**: Acknowledge dataset age, non-time-series snapshot structure, and lack of macro-economic interest rate variables.
 - [ ] **Future Work (Addressing Professor Uri's Feedback)**:
@@ -166,7 +169,7 @@
 | **Roman Hall** | `romanhall@berkeley.edu` | `notebooks/01_eda_home_credit.ipynb` | Application dataset ingestion, missingness heatmaps, `DAYS_EMPLOYED` anomaly cleaning, financial ratio engineering (`PAYMENT_RATE`, `INCOME_CREDIT_RATIO`), 4 milestone figures, and **TensorFlow Logistic Regression static feature ablation benchmark (3-fold CV with Precision/Recall)**. |
 | **Tung La** | `tung_la@berkeley.edu` | `notebooks/02_eda_relational_tables.ipynb` | Multi-table relational aggregation pipeline across 4 tables (26.9M rows), memory downcasting optimization, join diagnostics (match rates & duplicate verification), and **memory scaling benchmark (downcasting vs. row sampling)**. |
 | **Faisal Khasawneh** | `faisal_k@berkeley.edu` | `notebooks/03_alternative_features.ipynb` | Feature cohort partitioning (Traditional, Alternative, Hybrid, Thin-File), 5-fold cross-validation framework, LightGBM tree ensemble hyperparameter tuning (`scale_pos_weight = 11.39`), and **SHAP feature attribution analysis**. |
-| **Advik Goel** | `advik_goel@berkeley.edu` | `notebooks/04_model_experiments.ipynb` | TensorFlow Logistic Regression baseline, TensorFlow neural network (BatchNorm + Dropout), hyperparameter tuning grid, separate Precision/Recall table, **subgroup evaluation (Thin-file vs. Bureau, Gender parity), and Hypothesis 2 bootstrap test**. |
+| **Advik Goel** | `advik_goel@berkeley.edu` | `notebooks/04_model_experiments.ipynb` | TensorFlow Logistic Regression baseline, TensorFlow neural network (BatchNorm + Dropout), hyperparameter tuning grid, separate Precision/Recall table, missing-value flag experiment, **subgroup evaluation (Thin-file vs. Bureau, Gender parity), and Hypothesis 2 bootstrap test**. |
 
 - [ ] Note: Confirm that all four notebooks on GitHub have single-contributor ownership and sequential cell numbering starting at 1.
 - [ ] GitHub Repository URL: `https://github.com/romanmhall/DATASCI-207-FinalProject-Team1`
