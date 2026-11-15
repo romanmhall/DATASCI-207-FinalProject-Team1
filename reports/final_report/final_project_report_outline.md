@@ -14,7 +14,7 @@
 - [ ] **Motivation**: Introduce the thin-file credit problem (unbanked/underbanked borrowers lacking traditional credit bureau records).
 - [ ] **Machine Learning Methodology**: State the three model families used (TensorFlow Logistic Regression baseline, LightGBM GBDT tree ensembles, and TensorFlow Tabular Deep Neural Network).
 - [ ] **Data Scope**: Mention multi-table aggregation across 26.9M behavioral transactions down to a 307k primary applicant matrix.
-- [ ] **Key Findings**: State key results (Hybrid cohort achieves 0.7699 ROC-AUC on LightGBM and 0.7595 on TF NN; alternative behavioral features provide statistically significant performance lift specifically for thin-file applicants, confirming Hypothesis 2).
+- [ ] **Key Findings**: State key results (Hybrid cohort achieves 0.7699 ROC-AUC on LightGBM and 0.7584 on both TF models; alternative data adds about +0.055 ROC-AUC over Traditional features. The lift is about the same for thin-file and bureau-backed applicants, so Hypothesis 2 is not supported).
 
 ---
 
@@ -93,9 +93,9 @@
 
 ### [NOTES FOR ADVIK TO FILL IN]
 - [ ] **Algorithm 3 — Improvement 2: Deep Tabular Neural Network (TensorFlow / Keras)**:
-  - Describe architecture: Input layer (numerical + categorical), Entity Embeddings for categorical features, Dense hidden layers (units: 64 to 256), `BatchNormalization`, `Dropout` ($p=0.2$ to $0.3$) for regularization, ReLU activations, and final Sigmoid output.
-  - Training configuration: Adam optimizer ($\eta = 10^{-3}$), early stopping on validation ROC-AUC with patience = 5.
-  - Explain why appropriate: Tests whether deep joint latent representations and non-linear entity embeddings can discover complex interactions in credit transactions that decision trees miss.
+  - Describe architecture: `tf.keras.Sequential` on scaled numerics + one-hot categoricals: Dense(128, ReLU) $\rightarrow$ `BatchNormalization` $\rightarrow$ `Dropout(0.3)` $\rightarrow$ Dense(64, ReLU) $\rightarrow$ `Dropout(0.3)` $\rightarrow$ Dense(1, Sigmoid). Width and dropout picked from a 3-config grid (64 / 128 / 256 units) on the early-stop set.
+  - Training configuration: Adam optimizer ($\eta = 10^{-3}$), binary cross-entropy, batch size 1024, early stopping on validation ROC-AUC with patience = 5 (best weights restored). No class weights, so the predicted probabilities stay usable for the Brier score.
+  - Explain why appropriate: Tests whether hidden layers can pick up non-linear interactions between static, bureau and behavioral features that a linear scorecard misses.
 
 ---
 
@@ -123,18 +123,18 @@
   - Engineered domain ratios: 6.4% of importance.
 
 ### [NOTES FOR ADVIK TO FILL IN — Deep Learning, Subgroups & Precision/Recall]
-- [ ] **Neural Network Performance**: Document TF Neural Net results across cohorts from `notebooks/04_model_experiments.ipynb` (Cohort 1: 0.7018 $\rightarrow$ Cohort 3 Hybrid: **0.7595 ROC-AUC**, 0.2482 PR-AUC).
+- [ ] **Neural Network Performance**: Document TF Neural Net results across cohorts from `notebooks/04_model_experiments.ipynb` (Cohort 1: 0.6999 $\rightarrow$ Cohort 3 Hybrid: **0.7584 ROC-AUC**, 0.2478 PR-AUC). TF LogReg on the same split also reaches 0.7584, so the NN does not beat the linear baseline.
 - [ ] **Precision & Recall Separation (Addressing Professor Uri's Feedback)**:
-  - Tabulate explicit Precision and Recall at calibrated decision thresholds ($\tau \approx 0.13$ to $0.17$ for TF models, $\tau \approx 0.60$ for weighted LightGBM).
-  - Discuss the business trade-off: capturing ~40–47% of all defaults (Recall) at ~25–32% Precision.
+  - Use the table in Section 7 of notebook 04 (`nb04_precision_recall.csv`, Hybrid cohort). At the F1 threshold ($\tau = 0.158$ LogReg, $\tau = 0.206$ NN) both models catch ~38–40% of defaults (Recall) at ~25–26% Precision and ~90% Specificity.
+  - Discuss the business trade-off: at $\tau = 0.10$ Recall rises to 60–67% but Precision falls to 17–19% and 26–32% of applicants get flagged. At $\tau = 0.50$ Recall is only ~2%, since the TF models are not class-weighted.
 - [ ] **Mandatory Subgroup Performance Analysis**:
-  - Segment test set into **Group A (Bureau History, $N \approx 263k$)** vs. **Group B (Thin-File, $N \approx 44k$)**.
-  - Evaluate Gender Demographic Parity: Male vs. Female applicants.
-- [ ] **Hypothesis 2 Empirical Validation (Bootstrap Significance)**:
-  - Reference `fig_h2_bootstrap.png`: show that the performance lift from alternative behavioral data is statistically significantly larger for thin-file applicants ($\Delta\text{AUC}_{\text{thin-file}} > \Delta\text{AUC}_{\text{bureau}}$).
+  - Segment the validation set into **Group A (Bureau History, $N = 52{,}668$)** vs. **Group B (Thin-File, $N = 8{,}835$)**. Thin-file applicants default more (10.0% vs. 7.7%), get a lower ROC-AUC (0.734 vs. 0.761, NN Hybrid) and are flagged more often (17% vs. 11%).
+  - Gender: ROC-AUC is about equal for men and women (0.751 vs. 0.756), but men are flagged about twice as often (17% vs. 9%), in line with their higher default rate (10.1% vs. 7.0%).
+- [ ] **Hypothesis 2 Bootstrap Test**:
+  - Reference `fig_h2_bootstrap.png`. Thin-file lift (+0.054 LogReg / +0.056 NN) is about the same as bureau lift (+0.055 / +0.059). The bootstrap 95% range of the difference includes 0 for both models ([-0.016, +0.013] and [-0.018, +0.013]), so **Hypothesis 2 is not supported**: alternative data helps both groups about equally.
 
 ### [NOTES FOR TEAM — Overfitting Analysis & Model Comparison]
-- [ ] **Overfitting Diagnostics**: Compare Train AUC vs. Validation AUC across models (e.g., TF NN Train 0.7926 vs. Val 0.7595 shows mild overfitting controlled by Dropout and EarlyStopping).
+- [ ] **Overfitting Diagnostics**: Compare Train AUC vs. Validation AUC across models (e.g., TF NN Train 0.7851 vs. Val 0.7584 shows mild overfitting controlled by Dropout and EarlyStopping).
 - [ ] **Final Model Selection**: Justify selecting LightGBM as the champion production model (highest ROC-AUC of 0.7699, superior PR-AUC of 0.2607, faster inference, and native missing value handling).
 
 ---
@@ -165,7 +165,7 @@
 | **Roman Hall** | `romanhall@berkeley.edu` | `notebooks/01_eda_home_credit.ipynb` | Application dataset ingestion, missingness heatmaps, `DAYS_EMPLOYED` anomaly cleaning, financial ratio engineering (`PAYMENT_RATE`, `INCOME_CREDIT_RATIO`), 4 milestone figures, and **TensorFlow Logistic Regression static feature ablation benchmark (3-fold CV with Precision/Recall)**. |
 | **Tung La** | `tung_la@berkeley.edu` | `notebooks/02_eda_relational_tables.ipynb` | Multi-table relational aggregation pipeline across 4 tables (26.9M rows), memory downcasting optimization, join diagnostics (match rates & duplicate verification), and **memory scaling benchmark (downcasting vs. row sampling)**. |
 | **Faisal Khasawneh** | `faisal_k@berkeley.edu` | `notebooks/03_alternative_features.ipynb` | Feature cohort partitioning (Traditional, Alternative, Hybrid, Thin-File), 5-fold cross-validation framework, LightGBM tree ensemble hyperparameter tuning (`scale_pos_weight = 11.39`), and **SHAP feature attribution analysis**. |
-| **Advik Goel** | `advik_goel@berkeley.edu` | `notebooks/04_model_experiments.ipynb` | TensorFlow Logistic Regression baseline, Deep Tabular Neural Network with entity embeddings, hyperparameter tuning grid, **subgroup evaluation (Thin-file vs. Bureau, Gender parity), and Hypothesis 2 bootstrap significance test**. |
+| **Advik Goel** | `advik_goel@berkeley.edu` | `notebooks/04_model_experiments.ipynb` | TensorFlow Logistic Regression baseline, TensorFlow neural network (BatchNorm + Dropout), hyperparameter tuning grid, separate Precision/Recall table, **subgroup evaluation (Thin-file vs. Bureau, Gender parity), and Hypothesis 2 bootstrap test**. |
 
 - [ ] Note: Confirm that all four notebooks on GitHub have single-contributor ownership and sequential cell numbering starting at 1.
 - [ ] GitHub Repository URL: `https://github.com/romanmhall/DATASCI-207-FinalProject-Team1`

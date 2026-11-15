@@ -13,7 +13,7 @@ Each team member owns a core notebook track with sequential cell numbering start
 ### Team Member Claim Roster
 | Team Member | Email | Claimed Track / Role | Completed Tasks |
 |---|---|---|---|
-| Advik Goel | `advik_goel@berkeley.edu` | `[x]` | `[ ]` |
+| Advik Goel | `advik_goel@berkeley.edu` | `[x]` | `[x]` |
 | Faisal Khasawneh | `faisal_k@berkeley.edu` | `[x]` | `[ ]` |
 | Roman Hall | `romanhall@berkeley.edu` | `[x]` | `[x]` |
 | Tung La | `tung_la@berkeley.edu` | `[x]` | `[x]` |
@@ -110,22 +110,26 @@ Each team member owns a core notebook track with sequential cell numbering start
 **Lead Owner**: `[Advik Goel]`  
 **Supporting Member(s)**: `[ ]`
 
-- [ ] **Deep Tabular Neural Network (Model 3 - Improvement 2 - Mandatory TensorFlow Rubric Rule)**
-  - [ ] Build `tf.keras` Tabular Deep Neural Network with Entity Embeddings for categorical features. **Owner: [Advik Goel]**
-  - [ ] Implement Batch Normalization, Dropout (0.2-0.3), and residual skip connections for numerical features. **Owner: [Advik Goel]**
-  - [ ] Optimize using Adam with early stopping on validation ROC-AUC; track loss and learning curves. **Owner: [Advik Goel]**
-- [ ] **Rigorous Imbalance & Subgroup Evaluation (Mandatory Rubric Rule)**
-  - [ ] Calculate comprehensive evaluation metrics: ROC-AUC, PR-AUC, Brier score, Expected Loss. **Owner: [Advik Goel]**
-  - [ ] Subgroup segmentation: evaluate and report metrics separately for:
-    - [ ] Group A: Applicants *with* credit bureau records (`bureau.csv` present). **Owner: [Advik Goel]**
-    - [ ] Group B: Thin-file applicants *without* credit bureau records (`HAS_BUREAU_HISTORY = 0`). **Owner: [Advik Goel]**
-    - [ ] Group C: Gender demographic parity (`CODE_GENDER` Male vs. Female). **Owner: [Advik Goel]**
-  - [ ] Statistically test whether the alternative/hybrid lift ($\Delta\text{AUC}$) is significantly larger for thin-file applicants (Hypothesis 2). **Owner: [Advik Goel]**
-- [ ] **Notebook Execution & Cell Numbering**
-  - [ ] Ensure notebook cell numbers run sequentially starting at 1 with all execution outputs embedded. **Owner: [Advik Goel]**
+- [x] **Deep Tabular Neural Network (Model 3 - Improvement 2 - Mandatory TensorFlow Rubric Rule)**
+  - [x] Build `tf.keras.Sequential` neural network: Dense(128) -> Dense(64) with ReLU, one-hot encoded categoricals. **Owner: [Advik Goel]**
+  - [x] Implement Batch Normalization and Dropout (0.3, picked from a 3-config grid of 64/128/256 units). **Owner: [Advik Goel]**
+  - [x] Optimize using Adam with early stopping on validation ROC-AUC (patience = 5); track loss and learning curves. **Owner: [Advik Goel]**
+  - [x] TensorFlow Logistic Regression (`Dense(1, activation='sigmoid')`, L2 = 1e-4) as the NN's baseline, trained on the same split. **Owner: [Advik Goel]**
+- [x] **Imbalance & Subgroup Evaluation (Mandatory Rubric Rule)**
+  - [x] Calculate evaluation metrics: ROC-AUC, PR-AUC, Brier score, predicted vs. actual loss. **Owner: [Advik Goel]**
+  - [x] Report Precision, Recall, F1 and Specificity separately at thresholds 0.10, 0.20, 0.50 and the F1 threshold (Professor Uri's feedback). **Owner: [Advik Goel]**
+  - [x] Subgroup segmentation: evaluate and report metrics separately for:
+    - [x] Group A: Applicants *with* credit bureau records (`HAS_BUREAU_HISTORY = 1`). **Owner: [Advik Goel]**
+    - [x] Group B: Thin-file applicants *without* credit bureau records (`HAS_BUREAU_HISTORY = 0`). **Owner: [Advik Goel]**
+    - [x] Group C: Gender (`CODE_GENDER` Male vs. Female). **Owner: [Advik Goel]**
+  - [x] Bootstrap test (1,000 resamples) of whether the hybrid lift ($\Delta\text{AUC}$) is larger for thin-file applicants (Hypothesis 2). **Owner: [Advik Goel]**
+- [x] **Notebook Execution & Cell Numbering**
+  - [x] Ensure notebook cell numbers run sequentially starting at 1 with all execution outputs embedded. **Owner: [Advik Goel]**
 
 #### Notes
-- Advik leading deep tabular neural net architecture, embeddings, and required subgroup evaluations.
+- Notebook 04 executed end to end (cells 1-17). Hybrid cohort: TF LogReg 0.7584 ROC-AUC, TF NN 0.7584 ROC-AUC (Train 0.7851, mild overfitting). Hybrid lift over Traditional is +0.055 (LogReg) and +0.059 (NN).
+- Hypothesis 2 is **not supported**: thin-file lift (+0.054 / +0.056) is about the same as bureau lift (+0.055 / +0.059), and the bootstrap 95% range includes 0 for both models.
+- Dropped entity embeddings and residual connections from the original plan to keep the network simple.
 
 ---
 
