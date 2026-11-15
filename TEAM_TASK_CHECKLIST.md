@@ -13,8 +13,8 @@ Each team member owns a core notebook track with sequential cell numbering start
 ### Team Member Claim Roster
 | Team Member | Email | Claimed Track / Role | Completed Tasks |
 |---|---|---|---|
-| Advik Goel | `advik_goel@berkeley.edu` | `[x]` | `[x]` |
-| Faisal Khasawneh | `faisal_k@berkeley.edu` | `[x]` | `[x]` |
+| Advik Goel | `advik_goel@berkeley.edu` | `[x]` | `[ ]` |
+| Faisal Khasawneh | `faisal_k@berkeley.edu` | `[x]` | `[ ]` |
 | Roman Hall | `romanhall@berkeley.edu` | `[x]` | `[x]` |
 | Tung La | `tung_la@berkeley.edu` | `[x]` | `[x]` |
 
@@ -46,12 +46,12 @@ Each team member owns a core notebook track with sequential cell numbering start
   - [x] Produce labeled histograms and boxplots for income (`AMT_INCOME_TOTAL`), credit amount (`AMT_CREDIT`), and annuity (`AMT_ANNUITY`). **Owner: [Roman Hall]**
   - [x] Plot default rates across age brackets (`DAYS_BIRTH`), education, and housing types. **Owner: [Roman Hall]**
   - [x] Export 2-3 high-resolution milestone figures to `reports/milestone/figures/`. **Owner: [Roman Hall]**
-- [x] **Methods & Experiment Contribution (Mandatory Rubric Rule)**
-  - [x] Benchmark a baseline logistic scorecard on static application features to measure standalone discriminatory power prior to relational joins. **Owner: [Roman Hall]**
-  - [x] Ensure notebook cell numbers run sequentially starting at 1 with all execution outputs embedded. **Owner: [Roman Hall]**
+- [ ] **Methods & Experiment Contribution (Mandatory Rubric Rule)**
+  - [ ] Benchmark a baseline logistic scorecard on static application features to measure standalone discriminatory power prior to relational joins. **Owner: [Roman Hall]**
+  - [ ] Ensure notebook cell numbers run sequentially starting at 1 with all execution outputs embedded. **Owner: [Roman Hall]**
 
 #### Notes
-- Static EDA complete with high-res figures embedded in milestone report. Modeling benchmark complete with sequential cells in 01_eda_home_credit.ipynb and 00_final_end_to_end_credit_project.ipynb.
+- Static EDA complete with high-res figures embedded in milestone report. Modeling benchmark in progress to satisfy individual Methods/Experiments rubric credit.
 
 ---
 
@@ -70,12 +70,12 @@ Each team member owns a core notebook track with sequential cell numbering start
   - [x] Execute one-time pre-aggregation join back to primary `SK_ID_CURR` index. **Owner: [Tung La]**
   - [x] Export consolidated feature matrix to compressed Parquet (`data/processed/processed_features.parquet`) for fast Colab execution. **Owner: [Tung La]**
   - [x] Document data size reduction metrics (before vs. after memory footprint in MB) for the milestone report. **Owner: [Tung La]**
-- [x] **Methods & Experiment Contribution (Mandatory Rubric Rule)**
-  - [x] Evaluate feature selection / dimensionality reduction experiments (e.g., VarianceThreshold or correlation filtering) on baseline metrics. **Owner: [Tung La]**
-  - [x] Ensure notebook cell numbers run sequentially starting at 1 with all execution outputs embedded. **Owner: [Tung La]**
+- [ ] **Methods & Experiment Contribution (Mandatory Rubric Rule)**
+  - [ ] Evaluate feature selection / dimensionality reduction experiments (e.g., VarianceThreshold or correlation filtering) on baseline metrics. **Owner: [Tung La]**
+  - [ ] Ensure notebook cell numbers run sequentially starting at 1 with all execution outputs embedded. **Owner: [Tung La]**
 
 #### Notes
-- Multi-table joins complete; `processed_features.parquet` committed to repo. VarianceThreshold feature selection experiment verified on train split.
+- Multi-table joins complete; `processed_features.parquet` committed to repo. Feature selection evaluation in progress for individual rubric credit.
 
 ---
 
@@ -89,18 +89,18 @@ Each team member owns a core notebook track with sequential cell numbering start
   - [x] Cohort 1 (Traditional): Static demographics + Credit bureau features (`bureau.csv`). **Owner: [Faisal Khasawneh]**
   - [x] Cohort 2 (Alternative): Behavioral trajectories (`installments_payments`, `previous_application`, `POS_CASH`) + `EXT_SOURCE`. **Owner: [Faisal Khasawneh]**
   - [x] Cohort 3 (Hybrid): Concatenated feature space + interaction domain ratios (`PAYMENT_RATE`, `INCOME_CREDIT_RATIO`). **Owner: [Faisal Khasawneh]**
-- [x] **Baseline Linear Scorecard (Model 1 - Mandatory TensorFlow Rule)**
-  - [x] **CRITICAL RUBRIC REQUIREMENT**: Implement Logistic Regression in TensorFlow (`tf.keras.Sequential([Dense(1, activation='sigmoid')])`). **Owner: [Faisal Khasawneh / Team]**
+- [ ] **Baseline Linear Scorecard (Model 1 - Mandatory TensorFlow Rule)**
+  - [ ] **CRITICAL RUBRIC REQUIREMENT**: Implement Logistic Regression in TensorFlow (`tf.keras.Sequential([Dense(1, activation='sigmoid')])`). **Owner: [Faisal Khasawneh]**
   - [x] Compute baseline benchmarks: ROC-AUC, PR-AUC, and F1 score at calibrated threshold across cohorts. **Owner: [Faisal Khasawneh]**
 - [x] **Gradient Boosted Decision Trees (Model 2 - Improvement 1)**
   - [x] Train LightGBM with `scale_pos_weight` handling 8.07% class imbalance. **Owner: [Faisal Khasawneh]**
   - [x] Execute 5-fold Stratified Cross-Validation on training set. **Owner: [Faisal Khasawneh]**
   - [x] Generate SHAP feature importance summary plot comparing traditional vs. alternative predictors. **Owner: [Faisal Khasawneh]**
-- [x] **Notebook Execution & Cell Numbering**
-  - [x] Ensure notebook cell numbers run sequentially starting at 1 with all execution outputs embedded. **Owner: [Faisal Khasawneh]**
+- [ ] **Notebook Execution & Cell Numbering**
+  - [ ] Ensure notebook cell numbers run sequentially starting at 1 with all execution outputs embedded. **Owner: [Faisal Khasawneh]**
 
 #### Notes
-- Tree ensemble training, SHAP analysis, and TensorFlow logistic baseline verified and modularized.
+- Tree ensemble training and SHAP analysis complete; baseline model needs conversion to TensorFlow to satisfy course rubric.
 
 ---
 
@@ -110,22 +110,22 @@ Each team member owns a core notebook track with sequential cell numbering start
 **Lead Owner**: `[Advik Goel]`  
 **Supporting Member(s)**: `[ ]`
 
-- [x] **Deep Tabular Neural Network (Model 3 - Improvement 2 - Mandatory TensorFlow Rubric Rule)**
-  - [x] Build `tf.keras` Tabular Deep Neural Network with Entity Embeddings for categorical features. **Owner: [Advik Goel]**
-  - [x] Implement Batch Normalization, Dropout (0.2-0.3), and residual skip connections for numerical features. **Owner: [Advik Goel]**
-  - [x] Optimize using Adam with early stopping on validation ROC-AUC; track loss and learning curves. **Owner: [Advik Goel]**
-- [x] **Rigorous Imbalance & Subgroup Evaluation (Mandatory Rubric Rule)**
-  - [x] Calculate comprehensive evaluation metrics: ROC-AUC, PR-AUC, Brier score, Expected Loss. **Owner: [Advik Goel]**
-  - [x] Subgroup segmentation: evaluate and report metrics separately for:
-    - [x] Group A: Applicants *with* credit bureau records (`bureau.csv` present). **Owner: [Advik Goel]**
-    - [x] Group B: Thin-file applicants *without* credit bureau records (`HAS_BUREAU_HISTORY = 0`). **Owner: [Advik Goel]**
-    - [x] Group C: Gender demographic parity (`CODE_GENDER` Male vs. Female). **Owner: [Advik Goel]**
-  - [x] Statistically test whether the alternative/hybrid lift ($\Delta\text{AUC}$) is significantly larger for thin-file applicants (Hypothesis 2). **Owner: [Advik Goel]**
-- [x] **Notebook Execution & Cell Numbering**
-  - [x] Ensure notebook cell numbers run sequentially starting at 1 with all execution outputs embedded. **Owner: [Advik Goel]**
+- [ ] **Deep Tabular Neural Network (Model 3 - Improvement 2 - Mandatory TensorFlow Rubric Rule)**
+  - [ ] Build `tf.keras` Tabular Deep Neural Network with Entity Embeddings for categorical features. **Owner: [Advik Goel]**
+  - [ ] Implement Batch Normalization, Dropout (0.2-0.3), and residual skip connections for numerical features. **Owner: [Advik Goel]**
+  - [ ] Optimize using Adam with early stopping on validation ROC-AUC; track loss and learning curves. **Owner: [Advik Goel]**
+- [ ] **Rigorous Imbalance & Subgroup Evaluation (Mandatory Rubric Rule)**
+  - [ ] Calculate comprehensive evaluation metrics: ROC-AUC, PR-AUC, Brier score, Expected Loss. **Owner: [Advik Goel]**
+  - [ ] Subgroup segmentation: evaluate and report metrics separately for:
+    - [ ] Group A: Applicants *with* credit bureau records (`bureau.csv` present). **Owner: [Advik Goel]**
+    - [ ] Group B: Thin-file applicants *without* credit bureau records (`HAS_BUREAU_HISTORY = 0`). **Owner: [Advik Goel]**
+    - [ ] Group C: Gender demographic parity (`CODE_GENDER` Male vs. Female). **Owner: [Advik Goel]**
+  - [ ] Statistically test whether the alternative/hybrid lift ($\Delta\text{AUC}$) is significantly larger for thin-file applicants (Hypothesis 2). **Owner: [Advik Goel]**
+- [ ] **Notebook Execution & Cell Numbering**
+  - [ ] Ensure notebook cell numbers run sequentially starting at 1 with all execution outputs embedded. **Owner: [Advik Goel]**
 
 #### Notes
-- Advik leading deep tabular neural net architecture, embeddings, and required subgroup evaluations. All notebook outputs embedded.
+- Advik leading deep tabular neural net architecture, embeddings, and required subgroup evaluations.
 
 ---
 
@@ -163,44 +163,44 @@ Each team member owns a core notebook track with sequential cell numbering start
   - Contributions (notebook mapping, workload breakdown, GitHub link): `[Roman Hall]`
   - References & Appendix (excluded from 5-page limit): `[Team]`
 
-- [x] **Final Report Quality Gate Checklist**
-  - [x] **Strict Page Limit**: $\le 5$ pages total for main body (Header through Contributions). References and Appendix placed on page 6+ (excluded from page limit). **Owner: [Team]**
-  - [x] **Team Info (5 pts)**: Full names and `@berkeley.edu` emails for all 4 members. **Owner: [Advik Goel]**
-  - [x] **Abstract (5 pts)**: Concise 1-paragraph summary of motivation, ML methodology, and key findings. **Owner: [Advik Goel]**
-  - [x] **Introduction (5 pts)**: Clearly explains problem importance and includes exact mandatory sentence: *"The input to our algorithm is {tabular applicant demographic and historical credit transaction records}, and we use {TensorFlow Logistic Regression, LightGBM, and a TensorFlow Tabular Deep Neural Network} to predict {the binary probability of loan default within the target horizon}."* **Owner: [Advik Goel]**
-  - [x] **Related Work (5 pts)**: Reviews $\ge 2$ relevant papers/products, grouped by approach, discussing strengths/weaknesses and SOTA comparison with consistent citations. **Owner: [Faisal Khasawneh]**
-  - [x] **Dataset (5 pts)**: Data source, sizes before/after, train/validation/test splits, preprocessing steps, and thorough discussion of EDA visualizations and modeling implications. **Owner: [Roman Hall / Tung La]**
-  - [x] **Methods (30 pts)**: At least 3 algorithms (Baseline + 2 Improvements), justification, paragraph on how each works, and **TensorFlow strictly used for logistic regression and neural network**. **Owner: [Faisal Khasawneh / Advik Goel]**
-  - [x] **Experiments & Results (30 pts)**: Hyperparameter tuning, validation strategy, evaluation metrics, **subgroup performance evaluations** (thin-file vs bureau-backed, gender), overfitting analysis & mitigations, model comparison and selection justification. **Owner: [Advik Goel / Faisal Khasawneh]**
-  - [x] **Conclusions (5 pts)**: Wrap-up of key findings, best algorithms & why they succeeded, limitations, and future improvements. **Owner: [Roman Hall]**
-  - [x] **Contributions (5 pts)**: Detailed breakdown per member, notebook ownership (1 contributor per notebook, sequential cells starting at 1), Methods/Experiments contribution per member, GitHub repo link. **Owner: [Roman Hall]**
-  - [x] **Submission Format (5 pts)**: $\le 5$-page PDF compiled (`final_project_report.pdf`), Letter (8.5x11 in), 10 pt font, margins $\ge 0.5$ in, verified $\le 5$ pages for main body with references/appendix on page 6-7, ready for Gradescope submission with all 4 members tagged. **Owner: [Team]**
+- [ ] **Final Report Quality Gate Checklist**
+  - [ ] **Strict Page Limit**: $\le 5$ pages total for main body (Header through Contributions). References and Appendix placed on page 6+ (excluded from page limit). **Owner: [Team]**
+  - [ ] **Team Info (5 pts)**: Full names and `@berkeley.edu` emails for all 4 members. **Owner: [Advik Goel]**
+  - [ ] **Abstract (5 pts)**: Concise 1-paragraph summary of motivation, ML methodology, and key findings. **Owner: [Advik Goel]**
+  - [ ] **Introduction (5 pts)**: Clearly explains problem importance and includes exact mandatory sentence: *"The input to our algorithm is {tabular applicant demographic and historical credit transaction records}, and we use {TensorFlow Logistic Regression, LightGBM, and a TensorFlow Tabular Deep Neural Network} to predict {the binary probability of loan default within the target horizon}."* **Owner: [Advik Goel]**
+  - [ ] **Related Work (5 pts)**: Reviews $\ge 2$ relevant papers/products, grouped by approach, discussing strengths/weaknesses and SOTA comparison with consistent citations. **Owner: [Faisal Khasawneh]**
+  - [ ] **Dataset (5 pts)**: Data source, sizes before/after, train/validation/test splits, preprocessing steps, and thorough discussion of EDA visualizations and modeling implications. **Owner: [Roman Hall / Tung La]**
+  - [ ] **Methods (30 pts)**: At least 3 algorithms (Baseline + 2 Improvements), justification, paragraph on how each works, and **TensorFlow strictly used for logistic regression and neural network**. **Owner: [Faisal Khasawneh / Advik Goel]**
+  - [ ] **Experiments & Results (30 pts)**: Hyperparameter tuning, validation strategy, evaluation metrics, **subgroup performance evaluations** (thin-file vs bureau-backed, gender), overfitting analysis & mitigations, model comparison and selection justification. **Owner: [Advik Goel / Faisal Khasawneh]**
+  - [ ] **Conclusions (5 pts)**: Wrap-up of key findings, best algorithms & why they succeeded, limitations, and future improvements. **Owner: [Roman Hall]**
+  - [ ] **Contributions (5 pts)**: Detailed breakdown per member, notebook ownership (1 contributor per notebook, sequential cells starting at 1), Methods/Experiments contribution per member, GitHub repo link. **Owner: [Roman Hall]**
+  - [ ] **Submission Format (5 pts)**: $\le 5$-page PDF, Letter (8.5x11 in), 10-12 pt font, margins $\ge 0.5$ in, submitted to Gradescope with all 4 members tagged. **Owner: [Team]**
 
 #### Notes
-- Final Report compiled via TinyTeX to `reports/final_report/final_project_report.pdf` (exactly 5 pages for main body, references & appendix on page 6-7).
+- Final Report worth 20% of project grade. Reference format: MLE style or consistent APA/IEEE.
 
 ---
 
 ### Task 7: Final Project Presentation (12 Minutes Live)
 **Presentation Directory**: `reports/presentation/`  
-**Deliverable**: `reports/presentation/final_project_presentation.pdf` (or `.pptx`, `.md`)  
+**Deliverable**: `reports/presentation/final_project_presentation.pdf` (or `.pptx`)  
 **Lead Owner**: `[Team]`  
 **Target Duration**: 12 minutes total (~3 minutes per team member)
 
-- [x] **Presentation Slide Deck Structure (10-12 Slides)**
-  - [x] Slide 1: Title, Team Members, Problem Statement & Motivation
-  - [x] Slide 2: Related Work & Industry Benchmark Limitations
-  - [x] Slide 3: Dataset Scale (26.9M rows) & Preprocessing Architecture
-  - [x] Slide 4: Key EDA Visualizations (Age risk gradient, external score separation)
-  - [x] Slide 5: Methods (TF Logistic Regression, LightGBM, TF Tabular Deep NN)
-  - [x] Slide 6: Experimental Setup, Cross-Validation & Metric Selection
-  - [x] Slide 7: Main Results (ROC-AUC / PR-AUC comparison table across cohorts)
-  - [x] Slide 8: Subgroup Performance Evaluation (Thin-File Lift vs. Bureau-Backed)
-  - [x] Slide 9: Overfitting Diagnostics & Error Analysis
-  - [x] Slide 10: Conclusions, Production Viability & Future Work
-  - [x] Slide 11: Team Contributions & GitHub Repository Link
+- [ ] **Presentation Slide Deck Structure (10-12 Slides)**
+  - [ ] Slide 1: Title, Team Members, Problem Statement & Motivation
+  - [ ] Slide 2: Related Work & Industry Benchmark Limitations
+  - [ ] Slide 3: Dataset Scale (26.9M rows) & Preprocessing Architecture
+  - [ ] Slide 4: Key EDA Visualizations (Age risk gradient, external score separation)
+  - [ ] Slide 5: Methods (TF Logistic Regression, LightGBM, TF Tabular Deep NN)
+  - [ ] Slide 6: Experimental Setup, Cross-Validation & Metric Selection
+  - [ ] Slide 7: Main Results (ROC-AUC / PR-AUC comparison table across cohorts)
+  - [ ] Slide 8: Subgroup Performance Evaluation (Thin-File Lift vs. Bureau-Backed)
+  - [ ] Slide 9: Overfitting Diagnostics & Error Analysis
+  - [ ] Slide 10: Conclusions, Production Viability & Future Work
+  - [ ] Slide 11: Team Contributions & GitHub Repository Link
 - [ ] **Delivery & Quality Gates**
-  - [x] **Slide Quality (30 pts)**: Clear, concise slides with organized, easy-to-read charts/plots supporting key points (`reports/presentation/final_project_presentation.md`). **Owner: [Team]**
+  - [ ] **Slide Quality (30 pts)**: Clear, concise slides with organized, easy-to-read charts/plots supporting key points. **Owner: [Team]**
   - [ ] **Presentation Delivery (10 pts)**: Cohesive live delivery strictly within 12-minute cap; each member presents their section. **Owner: [Team]**
   - [ ] **Q&A Handling (10 pts)**: Confident handling of audience and instructor questions regarding modeling choices and leakage prevention. **Owner: [Team]**
 
