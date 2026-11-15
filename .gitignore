@@ -43,3 +43,12 @@ CLAUDE.md
 AGENTS.md
 execution_audit.md
 setup_scaffold.py
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz

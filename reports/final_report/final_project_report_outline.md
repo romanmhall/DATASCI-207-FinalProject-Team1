@@ -38,10 +38,10 @@
 > **Rubric Criteria**: Review $\ge 2$ relevant papers/products, grouped by approach, discuss strengths/weaknesses, compare with your approach, identify SOTA.
 
 ### [NOTES FOR FAISAL TO FILL IN]
-- [ ] **Approach Group 1 — Traditional Scorecards & Tree Ensembles**:
+- [ ] **Approach Group 1  -  Traditional Scorecards & Tree Ensembles**:
   - Review traditional linear/logistic credit scoring vs. modern gradient boosted decision trees (e.g., Chen & Guestrin 2016 XGBoost / Ke et al. 2017 LightGBM).
   - Discuss strengths (handling missingness natively, non-linear interactions, high interpretability via SHAP) and weaknesses (struggle with high-cardinality sparse embeddings).
-- [ ] **Approach Group 2 — Alternative Data & Tabular Deep Learning**:
+- [ ] **Approach Group 2  -  Alternative Data & Tabular Deep Learning**:
   - Review literature applying alternative behavioral data (telecom, utilities, transaction sequences) and tabular neural networks (e.g., Gorodnichenko et al. 2021; Borisov et al. 2022).
   - Discuss strengths (joint latent representation learning across multimodal fields) and weaknesses (computational overhead, overfitting risk on tabular data).
 - [ ] **Comparison with Our Work**: Contrast how our hybrid cohort architecture combines static demographics, external bureau scores, and multi-table behavioral aggregates to specifically evaluate thin-file vs. bureau-backed lift.
@@ -53,7 +53,7 @@
 > **Target Length**: $\le 1$ page  
 > **Rubric Criteria**: Data sources, sizes before/after, train/val/test splits, preprocessing steps, join diagnostics, and EDA implications.
 
-### [NOTES FOR ROMAN TO FILL IN — Application EDA & Preprocessing]
+### [NOTES FOR ROMAN TO FILL IN  -  Application EDA & Preprocessing]
 - [ ] **Primary Data Source & Imbalance**: Describe `application_train.csv` (307,511 primary applicants, 122 raw features, 8.07% default rate, 11.39:1 imbalance ratio).
 - [ ] **Data Splits**: Document the 70 / 10 / 20 stratified train / validation / test splits (Train: 215,257; Val: 30,751; Test: 61,503).
 - [ ] **Anomaly Cleaning**: Document the `DAYS_EMPLOYED = 365,243` pension anomaly (5.40% default vs. 8.66% standard) and how flagging it prevented model bias.
@@ -63,7 +63,7 @@
   - *Figure 2*: Age risk gradient (default rate drops monotonically from 12.3% for age 20-25 down to 5.2% for age 60+).
   - *Figure 3*: External score discrimination curves (`EXT_SOURCE_1/2/3`).
 
-### [NOTES FOR TUNG TO FILL IN — Relational Joins & Memory Scaling]
+### [NOTES FOR TUNG TO FILL IN  -  Relational Joins & Memory Scaling]
 - [ ] **Relational Data Scale**: Document the 4 relational tables totaling 26.9M rows (`bureau.csv`: 1.7M, `previous_application.csv`: 1.6M, `POS_CASH_balance.csv`: 10.0M, `installments_payments.csv`: 13.6M).
 - [ ] **Join Diagnostics (Addressing Professor Uri's Feedback)**:
   - Report match coverage across primary applicants: Bureau (85.7%), Previous Apps (94.6%), POS-Cash (94.1%), Installments (94.8%).
@@ -83,16 +83,16 @@
 > **Rubric Criteria**: At least 3 algorithms (Baseline + 2 Improvements), justification, paragraph on how each works, and **TensorFlow strictly used for logistic regression and neural networks**.
 
 ### [NOTES FOR FAISAL TO FILL IN]
-- [ ] **Algorithm 1 — Baseline: TensorFlow Logistic Regression**:
+- [ ] **Algorithm 1  -  Baseline: TensorFlow Logistic Regression**:
   - Describe architecture: Single `Dense(1, activation='sigmoid')` layer with $L_2$ weight regularization (`1e-4`), binary cross-entropy loss, and Adam optimizer.
   - Explain why appropriate: Provides an interpretable, convex linear separability benchmark directly comparable to industry credit scorecards.
-- [ ] **Algorithm 2 — Improvement 1: LightGBM Gradient Boosted Decision Trees**:
+- [ ] **Algorithm 2  -  Improvement 1: LightGBM Gradient Boosted Decision Trees**:
   - Describe how it works: Leaf-wise tree growth, histogram-based splitting, gradient-based one-side sampling (GOSS).
   - Explain why appropriate: Natively routes missing values (crucial for sparse external scores and bureau fields), handles non-linear interactions, and scales efficiently.
   - Document class imbalance handling: `scale_pos_weight = 11.39` to counterbalance 8.07% default rate.
 
 ### [NOTES FOR ADVIK TO FILL IN]
-- [ ] **Algorithm 3 — Improvement 2: Deep Tabular Neural Network (TensorFlow / Keras)**:
+- [ ] **Algorithm 3  -  Improvement 2: Deep Tabular Neural Network (TensorFlow / Keras)**:
   - Describe architecture: Input layer (numerical + categorical), Entity Embeddings for categorical features, Dense hidden layers (units: 64 to 256), `BatchNormalization`, `Dropout` ($p=0.2$ to $0.3$) for regularization, ReLU activations, and final Sigmoid output.
   - Training configuration: Adam optimizer ($\eta = 10^{-3}$), early stopping on validation ROC-AUC with patience = 5.
   - Explain why appropriate: Tests whether deep joint latent representations and non-linear entity embeddings can discover complex interactions in credit transactions that decision trees miss.
@@ -104,13 +104,13 @@
 > **Target Length**: 1 to 2 pages  
 > **Rubric Criteria**: Hyperparameter tuning, validation strategy, evaluation metrics (ROC-AUC, PR-AUC, separate Precision and Recall), subgroup evaluations, overfitting analysis, model comparison.
 
-### [NOTES FOR ROMAN TO FILL IN — Static Feature Ablation]
+### [NOTES FOR ROMAN TO FILL IN  -  Static Feature Ablation]
 - [ ] Document the static application baseline ablation results from `notebooks/01_eda_home_credit.ipynb`:
   - Demographics only: 0.5834 ROC-AUC.
   - Adding loan amounts & ratios: ~0.6085 ROC-AUC.
   - Adding external scores (`EXT_SOURCE`): 0.7230 ROC-AUC (showing external scores provide the bulk of static discrimination).
 
-### [NOTES FOR FAISAL TO FILL IN — Tree Ensemble Benchmarks & SHAP]
+### [NOTES FOR FAISAL TO FILL IN  -  Tree Ensemble Benchmarks & SHAP]
 - [ ] Document 5-fold cross-validation performance across the 4 cohorts from `notebooks/03_alternative_features.ipynb`:
   - Cohort 1 (Traditional): LightGBM Val ROC-AUC = 0.7128.
   - Cohort 2 (Alternative): LightGBM Val ROC-AUC = 0.7307.
@@ -122,7 +122,7 @@
   - Alternative behavioral features: 35.9% of importance.
   - Engineered domain ratios: 6.4% of importance.
 
-### [NOTES FOR ADVIK TO FILL IN — Deep Learning, Subgroups & Precision/Recall]
+### [NOTES FOR ADVIK TO FILL IN  -  Deep Learning, Subgroups & Precision/Recall]
 - [ ] **Neural Network Performance**: Document TF Neural Net results across cohorts from `notebooks/04_model_experiments.ipynb` (Cohort 1: 0.7018 $\rightarrow$ Cohort 3 Hybrid: **0.7595 ROC-AUC**, 0.2482 PR-AUC).
 - [ ] **Precision & Recall Separation (Addressing Professor Uri's Feedback)**:
   - Tabulate explicit Precision and Recall at calibrated decision thresholds ($\tau \approx 0.13$ to $0.17$ for TF models, $\tau \approx 0.60$ for weighted LightGBM).
@@ -133,7 +133,7 @@
 - [ ] **Hypothesis 2 Empirical Validation (Bootstrap Significance)**:
   - Reference `fig_h2_bootstrap.png`: show that the performance lift from alternative behavioral data is statistically significantly larger for thin-file applicants ($\Delta\text{AUC}_{\text{thin-file}} > \Delta\text{AUC}_{\text{bureau}}$).
 
-### [NOTES FOR TEAM — Overfitting Analysis & Model Comparison]
+### [NOTES FOR TEAM  -  Overfitting Analysis & Model Comparison]
 - [ ] **Overfitting Diagnostics**: Compare Train AUC vs. Validation AUC across models (e.g., TF NN Train 0.7926 vs. Val 0.7595 shows mild overfitting controlled by Dropout and EarlyStopping).
 - [ ] **Final Model Selection**: Justify selecting LightGBM as the champion production model (highest ROC-AUC of 0.7699, superior PR-AUC of 0.2607, faster inference, and native missing value handling).
 
@@ -159,7 +159,7 @@
 > **Target Length**: ~0.5 pages (Counts toward the 5-page limit)  
 > **Rubric Criteria**: Breakdown of specific tasks, single notebook ownership per member, sequential cell execution, and GitHub link.
 
-### [NOTES FOR ROMAN TO FILL IN — Table Breakdown]
+### [NOTES FOR ROMAN TO FILL IN  -  Table Breakdown]
 | Team Member | Email Address | Owned Notebook Track | Core Methods & Experiments Contributions |
 |---|---|---|---|
 | **Roman Hall** | `romanhall@berkeley.edu` | `notebooks/01_eda_home_credit.ipynb` | Application dataset ingestion, missingness heatmaps, `DAYS_EMPLOYED` anomaly cleaning, financial ratio engineering (`PAYMENT_RATE`, `INCOME_CREDIT_RATIO`), 4 milestone figures, and **TensorFlow Logistic Regression static feature ablation benchmark (3-fold CV with Precision/Recall)**. |
