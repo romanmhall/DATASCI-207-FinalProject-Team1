@@ -33,7 +33,8 @@ credit_project/
 │   │   └── home_credit_default_risk/  # Kaggle CSV tables (307k primary, 13.6M installment rows)
 │   └── processed/                     # Cleaned & partitioned parquet matrices for Colab execution
 │
-├── notebooks/                         # Core exploratory & experimental notebooks (1 per team member)
+├── notebooks/                         # Core exploratory, experimental & unified master notebooks
+│   ├── 00_final_end_to_end_credit_project.ipynb # Unified Master: End-to-end problem definition, EDA, split & benchmarks
 │   ├── 01_eda_home_credit.ipynb       # Track 1: Static application EDA, missingness & demographic plots
 │   ├── 02_eda_relational_tables.ipynb # Track 2: Multi-table joins, installment & cash balance aggregations
 │   ├── 03_alternative_features.ipynb  # Track 3: Cohort partitioning, baseline scorecards & LightGBM tuning

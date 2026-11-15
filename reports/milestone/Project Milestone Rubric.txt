@@ -1,0 +1,14 @@
+Project Milestone (10%)
+
+Project Milestone Rubric
+Criteria	Weight	Points	Deliverables
+Team Info	0.5%	5	Includes full names and berkeley.edu emails for all team members.
+Motivation	0.5%	5	Clearly explains the question and the motivation.
+Data description	1.0%	10	Describes the dataset, source, size before/after preprocessing, input/target variables and dataset splits.
+Data preprocessing	2.5%	25	Includes detailed preprocessing steps (i.e., handling of missing values, outliers etc.).
+EDA and visualizations	2.5%	25	Includes multiple plots (e.g., histograms, scatter plots) with proper labels, titles, and interpretations.
+Data challenges	1.0%	10	Clearly discusses data challenges and how they were addressed.
+Methods and Experiments	1.0%	10	Describes baseline + two improvements, planned experiments, tuning strategy, evaluation metrics, and comparison method.
+Team contributions	0.5%	5	Clearly documents each team member’s contributions and notebook ownership.
+Submission format	0.5%	5	Submitted as a 3-page max PDF, correct PDF layout, and tagged all members on Gradescope.
+Total	10.0%	100	

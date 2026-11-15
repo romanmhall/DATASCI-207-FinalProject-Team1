@@ -1,0 +1,162 @@
+================================================================================
+DATASCI 207: Machine Learning at Scale - Final Project Proposal Responses
+Team 1: Advik Goel, Faisal, Roman Hall, Tung La
+Project: Behavioral Dynamics and Alternative Data for Thin-File Credit Default Prediction
+================================================================================
+
+This document addresses the three review questions regarding our Project Proposal.
+
+
+--------------------------------------------------------------------------------
+QUESTION 1:
+"We frame default prediction as binary classification" why binary?
+Show that you considered the options and why you decided on this.
+--------------------------------------------------------------------------------
+
+RESPONSE:
+
+In designing our modeling strategy, we evaluated four distinct formulation 
+paradigms before selecting binary classification:
+
+1. Formulations Considered:
+
+   a. Multi-Class / Ordinal Delinquency Classification (Roll Rates):
+      - Framing: Predicting discrete delinquency buckets, such as Current 
+        (0 Days Past Due), 30-59 DPD, 60-89 DPD, and 90+ DPD (Default/Charge-Off).
+      - Evaluation: In consumer credit portfolios, extreme class imbalance 
+        severely fragments intermediate delinquency states. While overall default 
+        is 8.07%, intermediate stages (like 60-89 DPD) represent less than 0.5% 
+        to 1.0% of all observations. Multi-class models on such fragmented 
+        distributions suffer from severe minority-class degradation without 
+        providing additional utility for an initial loan approval decision.
+
+   b. Continuous Regression (Loss Given Default / Repayment Ratio):
+      - Framing: Predicting the exact continuous recovery rate or net dollar loss 
+        (Expected Loss = Probability of Default * Loss Given Default * Exposure).
+      - Evaluation: Continuous recovery data requires post-default collections 
+        tracking over multiple years. The Home Credit dataset captures origination 
+        risk rather than post-charge-off liquidation proceeds. Furthermore, loan 
+        origination policies require an immediate underwriting decision prior to 
+        capital disbursement.
+
+   c. Survival Analysis (Time-to-Default / Hazard Modeling):
+      - Framing: Modeling time-to-delinquency using Cox Proportional Hazards or 
+        accelerated failure time models to account for right-censoring.
+      - Evaluation: While valuable for monitoring loan portfolio aging over time, 
+        applicants in our primary dataset hold varied loan maturities, revolving 
+        structures, and term lengths without uniform observation windows. 
+
+   d. Binary Classification (Selected Approach):
+      - Framing: Predicting TARGET in {0, 1}, where TARGET = 1 indicates that 
+        the borrower experienced late payment delinquency (specifically 90+ DPD 
+        on early installments), and TARGET = 0 indicates regular repayment.
+
+2. Rationale for Selecting Binary Classification:
+
+   - Alignment with Industry Underwriting Decisions:
+     At loan origination, lenders must execute a discrete policy action: Approve 
+     versus Reject (or referral to manual credit review). Binary classification 
+     directly mirrors this operational decision gate.
+
+   - Regulatory Standard (Basel II / III Accords):
+     International banking frameworks define credit risk fundamentally around 
+     the 12-month Probability of Default (PD), defined as a 90+ DPD delinquency 
+     event. Framing the problem as binary classification allows our models to 
+     directly output well-calibrated posterior probabilities P(TARGET = 1 | X).
+
+   - Actionable Risk-Based Threshold Calibration:
+     Probabilistic binary outputs enable lenders to move beyond arbitrary 0.5 
+     cutoffs. By varying the decision threshold tau, we can construct cost-
+     sensitive decision curves that reflect the real-world asymmetry of credit 
+     risk (where the financial loss of a False Negative/Default is typically 
+     5x to 10x greater than the opportunity cost of a False Positive/Rejection).
+
+   - Dataset Ground Truth:
+     The benchmark Kaggle dataset defines the primary label TARGET as a binary 
+     indicator (8.07% positive default rate). Retaining this binary formulation 
+     ensures direct comparability with established literature and public benchmarks.
+
+
+--------------------------------------------------------------------------------
+QUESTION 2:
+"Berg et al. (2020)" Give me a title please :). You can include an appendix 
+on a new page if needed.
+--------------------------------------------------------------------------------
+
+RESPONSE:
+
+The full paper title and citation details are provided below. (Note: The 
+References section was unfortunately cut off on the second page of our initial 
+two-page PDF compile due to spacing constraints).
+
+Full Reference (APA 7th Edition):
+
+   Berg, T., Burg, V., Gombovic, A., & Puri, M. (2020). 
+   On the Rise of FinTechs: Credit Scoring Using Digital Footprints. 
+   The Review of Financial Studies, 33(7), 2845-2897. 
+   https://doi.org/10.1093/rfs/hhaa014
+
+Paper Summary & Relevance to Our Project (Appendix Context):
+
+   - Published in The Review of Financial Studies (a premier finance journal), 
+     this landmark study analyzes over 250,000 consumer purchases from a German 
+     e-commerce platform.
+   - The authors demonstrate that simple digital footprints (such as device type, 
+     operating system, email provider, and time of day of transaction) predict 
+     consumer default with an AUC of 0.696, rivaling the predictive power of a 
+     traditional credit bureau score (AUC 0.683).
+   - Most importantly, Berg et al. show that combining digital/behavioral signals 
+     with traditional bureau data increases the AUC to 0.736, reducing default 
+     rates by up to 40%. Crucially, the predictive gain was largest among 
+     unscoreable and thin-file borrowers.
+   - Our DATASCI 207 project directly builds on Berg et al.'s findings by testing 
+     whether rich multi-table behavioral trajectories (installment repayment 
+     gaps, previous application behaviors, and POS cash balance patterns) can 
+     similarly substitute for or augment missing credit bureau records.
+
+
+--------------------------------------------------------------------------------
+QUESTION 3:
+I wasn't familiar with the term "thin-file", maybe clarify.
+--------------------------------------------------------------------------------
+
+RESPONSE:
+
+Definition and Industry Context:
+
+1. What is a "Thin-File" Borrower?
+   A "thin-file" applicant is an individual who has little or no formal credit 
+   history on record with major national credit bureaus (such as Equifax, 
+   Experian, or TransUnion).
+
+2. Technical Criteria:
+   Under guidelines established by the Consumer Financial Protection Bureau 
+   (CFPB), an applicant is classified as thin-file if their bureau file contains:
+   - Fewer than 1 to 5 credit accounts, or
+   - Credit accounts that have been open for less than 6 months, or
+   - No updated account activity reported to the bureau within the past 6 months.
+
+3. Why Thin-File Status Creates a Structural Barrier:
+   Standard credit scoring algorithms (such as FICO or VantageScore) require a 
+   minimum depth of historical data (e.g., at least one account open for 6+ 
+   months and recent reporting activity). Without this history, the algorithm 
+   cannot compute a reliable score, rendering the applicant "credit unscoreable."
+   
+   In traditional banking systems, unscoreable or thin-file applicants are 
+   routinely rejected outright or subjected to predatory interest rates, even 
+   when they earn steady incomes and practice disciplined cash-budgeting habits. 
+   This disproportionately affects young adults (students, recent graduates), 
+   recent immigrants, gig-economy workers, and unbanked populations.
+
+4. Operationalization in Our Project:
+   In our dataset, thin-file borrowers are explicitly identified as applicants 
+   who lack historical debt records in the supplementary bureau table (bureau.csv) 
+   and exhibit missing values in traditional bureau inquiry metrics.
+   
+   Our central research goal is to demonstrate that multi-table behavioral 
+   dynamics (such as installment repayment consistency from previous transactions) 
+   can provide sufficient discriminative power to accurately evaluate the credit 
+   risk of these thin-file borrowers, fostering financial inclusion without 
+   sacrificing portfolio safety.
+
+================================================================================

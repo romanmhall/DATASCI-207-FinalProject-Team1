@@ -21,6 +21,7 @@ Each team member owns a core notebook track with sequential cell numbering start
 ### Primary Notebook Track Directory
 | Primary Notebook Track | Scope & Responsibilities | Claimed Owner |
 |---|---|---|
+| `notebooks/00_final_end_to_end_credit_project.ipynb` | Unified Master: End-to-End Problem Formulation, Metrics, EDA, Relational Joins & Multi-Model Benchmarks | `[Team 1 / All Members]` |
 | `notebooks/01_eda_home_credit.ipynb` | Static Application EDA, Missingness Profiling, Outlier Imputation & Baseline Scorecard | `[Roman Hall]` |
 | `notebooks/02_eda_relational_tables.ipynb` | Multi-Table Joins, Dynamic Aggregations, Parquet Export & Dimensionality Reduction | `[Tung La]` |
 | `notebooks/03_alternative_features.ipynb` | Feature Cohorts, TensorFlow Logistic Baseline & LightGBM Tuning | `[Faisal Khasawneh]` |
