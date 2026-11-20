@@ -131,7 +131,7 @@ Each team member owns a core notebook track with sequential cell numbering start
 - Notebook 04 executed end to end (cells 1-18), with TensorFlow determinism on so every run gives the same numbers. Hybrid cohort: TF LogReg 0.7584 ROC-AUC, TF NN 0.7581 ROC-AUC (Train 0.7812, mild overfitting). Hybrid lift over Traditional is +0.055 for both models.
 - Alternative data does help thin-file applicants: their lift is +0.054 (LogReg) / +0.058 (NN), with bootstrap 95% ranges of [0.040, 0.067] and [0.043, 0.073], both well above 0.
 - Hypothesis 2 is **not supported**: thin-file lift is about the same as bureau lift (+0.055 / +0.055), and the bootstrap 95% range of the difference includes 0 for both models.
-- Missing-value flags give a small gain: NN 0.7581 -> 0.7596 ROC-AUC (thin-file 0.735 -> 0.738), LogReg 0.7584 -> 0.7593. Still below LightGBM's 0.7699.
+- Missing-value flags give a small gain: NN 0.7581 -> 0.7596 ROC-AUC (thin-file 0.735 -> 0.738), LogReg 0.7584 -> 0.7593. Still below LightGBM's 0.7720.
 - Dropped entity embeddings and residual connections from the original plan to keep the network simple.
 
 ---

@@ -14,7 +14,7 @@
 - [ ] **Motivation**: Introduce the thin-file credit problem (unbanked/underbanked borrowers lacking traditional credit bureau records).
 - [ ] **Machine Learning Methodology**: State the three model families used (TensorFlow Logistic Regression baseline, LightGBM GBDT tree ensembles, and TensorFlow Tabular Deep Neural Network).
 - [ ] **Data Scope**: Mention multi-table aggregation across 26.9M behavioral transactions down to a 307k primary applicant matrix.
-- [ ] **Key Findings**: State key results (Hybrid cohort achieves 0.7699 ROC-AUC on LightGBM and ~0.758 on both TF models; alternative data adds about +0.055 ROC-AUC over Traditional features. For thin-file applicants the lift is +0.054 to +0.058, with bootstrap 95% ranges well above 0, so alternative data does help applicants without bureau records. The lift is about the same for thin-file and bureau-backed applicants, so Hypothesis 2 is not supported).
+- [ ] **Key Findings**: State key results (Hybrid cohort achieves 0.7720 ROC-AUC on LightGBM and ~0.758 on both TF models; alternative data adds about +0.055 ROC-AUC over Traditional features. For thin-file applicants the lift is +0.054 to +0.058, with bootstrap 95% ranges well above 0, so alternative data does help applicants without bureau records. The lift is about the same for thin-file and bureau-backed applicants, so Hypothesis 2 is not supported).
 
 ---
 
@@ -55,12 +55,12 @@
 
 ### [NOTES FOR ROMAN TO FILL IN — Application EDA & Preprocessing]
 - [ ] **Primary Data Source & Imbalance**: Describe `application_train.csv` (307,511 primary applicants, 122 raw features, 8.07% default rate, 11.39:1 imbalance ratio).
-- [ ] **Data Splits**: Document the 70 / 10 / 20 stratified train / validation / test splits (Train: 215,257; Val: 30,751; Test: 61,503).
+- [ ] **Data Splits**: Document the 72 / 8 / 20 stratified train / early-stopping / held-out splits (Train: 221,407; Early-stop: 24,601; Held-out: 61,503).
 - [ ] **Anomaly Cleaning**: Document the `DAYS_EMPLOYED = 365,243` pension anomaly (5.40% default vs. 8.66% standard) and how flagging it prevented model bias.
 - [ ] **Domain Ratio Engineering**: Document feature engineering for `PAYMENT_RATE`, `INCOME_CREDIT_RATIO`, and `ANNUITY_INCOME_RATIO`.
 - [ ] **EDA Visualizations**: Reference and interpret figures:
   - *Figure 1*: Target class imbalance and top missingness (`EXT_SOURCE_1` missing 56%).
-  - *Figure 2*: Age risk gradient (default rate drops monotonically from 12.3% for age 20-25 down to 5.2% for age 60+).
+  - *Figure 2*: Age risk gradient (default rate drops monotonically from 12.3% for age 20-25 down to 4.9% for age 60+).
   - *Figure 3*: External score discrimination curves (`EXT_SOURCE_1/2/3`).
 
 ### [NOTES FOR TUNG TO FILL IN — Relational Joins & Memory Scaling]
@@ -106,21 +106,21 @@
 
 ### [NOTES FOR ROMAN TO FILL IN — Static Feature Ablation]
 - [ ] Document the static application baseline ablation results from `notebooks/01_eda_home_credit.ipynb`:
-  - Demographics only: 0.5834 ROC-AUC.
-  - Adding loan amounts & ratios: ~0.6085 ROC-AUC.
-  - Adding external scores (`EXT_SOURCE`): 0.7230 ROC-AUC (showing external scores provide the bulk of static discrimination).
+  - Demographics only: 0.5764 ROC-AUC.
+  - Adding loan amounts: 0.6059 ROC-AUC (ratios alone instead: 0.5706).
+  - Adding external scores (`EXT_SOURCE`): 0.7199 ROC-AUC (showing external scores provide the bulk of static discrimination).
 
 ### [NOTES FOR FAISAL TO FILL IN — Tree Ensemble Benchmarks & SHAP]
 - [ ] Document 5-fold cross-validation performance across the 4 cohorts from `notebooks/03_alternative_features.ipynb`:
-  - Cohort 1 (Traditional): LightGBM Val ROC-AUC = 0.7128.
-  - Cohort 2 (Alternative): LightGBM Val ROC-AUC = 0.7307.
-  - Cohort 3 (Hybrid): LightGBM Val ROC-AUC = **0.7699**, PR-AUC = **0.2607**, F1 = 0.3170.
-  - Cohort 4 (No Bureau): LightGBM Val ROC-AUC = 0.7270.
-- [ ] Document the **+0.0571 ROC-AUC lift** of Hybrid over Traditional alone.
+  - Cohort 1 (Traditional): LightGBM Val ROC-AUC = 0.7150.
+  - Cohort 2 (Alternative): LightGBM Val ROC-AUC = 0.7330.
+  - Cohort 3 (Hybrid): LightGBM Val ROC-AUC = **0.7720**, PR-AUC = **0.2622**, F1 = 0.3181.
+  - Cohort 4 (No Bureau): LightGBM Val ROC-AUC = 0.7277.
+- [ ] Document the **+0.0570 ROC-AUC lift** of Hybrid over Traditional alone.
 - [ ] Interpret SHAP feature attributions from best LightGBM model:
-  - Traditional bureau & static features: 57.7% of total feature importance.
-  - Alternative behavioral features: 35.9% of importance.
-  - Engineered domain ratios: 6.4% of importance.
+  - Traditional bureau & static features: 57.4% of total feature importance.
+  - Alternative behavioral features: 36.7% of importance.
+  - Engineered domain ratios: 6.0% of importance.
 
 ### [NOTES FOR ADVIK TO FILL IN — Deep Learning, Subgroups & Precision/Recall]
 - [ ] **Neural Network Performance**: Document TF Neural Net results across cohorts from `notebooks/04_model_experiments.ipynb` (Cohort 1: 0.7026 $\rightarrow$ Cohort 3 Hybrid: **0.7581 ROC-AUC**, 0.2488 PR-AUC). TF LogReg on the same split reaches 0.7584, so the NN does not beat the linear baseline.
@@ -135,11 +135,11 @@
   - Reference `fig_h2_bootstrap.png`. Thin-file lift (+0.054 LogReg / +0.058 NN) is about the same as bureau lift (+0.055 / +0.055). The bootstrap 95% range of the difference includes 0 for both models ([-0.016, +0.013] and [-0.012, +0.018]), so **Hypothesis 2 is not supported**: alternative data helps both groups about equally.
 - [ ] **Missing-Value Flags Experiment (Addressing Professor Uri's Feedback)**:
   - The TF models fill blanks with the training median, which hides which values were missing. Section 11 of notebook 04 retrains both models on the Hybrid cohort with a 0/1 flag added for every column with blanks (289 $\rightarrow$ 368 inputs).
-  - Result: small gain. NN 0.7581 $\rightarrow$ 0.7596 ROC-AUC (thin-file 0.735 $\rightarrow$ 0.738), LogReg 0.7584 $\rightarrow$ 0.7593. Missingness carries some signal, but it explains only a small part of LightGBM's lead (0.7699).
+  - Result: small gain. NN 0.7581 $\rightarrow$ 0.7596 ROC-AUC (thin-file 0.735 $\rightarrow$ 0.738), LogReg 0.7584 $\rightarrow$ 0.7593. Missingness carries some signal, but it explains only a small part of LightGBM's lead (0.7720).
 
 ### [NOTES FOR TEAM — Overfitting Analysis & Model Comparison]
 - [ ] **Overfitting Diagnostics**: Compare Train AUC vs. Validation AUC across models (e.g., TF NN Train 0.7812 vs. Val 0.7581 shows mild overfitting controlled by Dropout and EarlyStopping).
-- [ ] **Final Model Selection**: Justify selecting LightGBM as the champion production model (highest ROC-AUC of 0.7699, superior PR-AUC of 0.2607, faster inference, and native missing value handling).
+- [ ] **Final Model Selection**: Justify selecting LightGBM as the champion production model (highest ROC-AUC of 0.7720, superior PR-AUC of 0.2622, faster inference, and native missing value handling).
 
 ---
 
